@@ -1,0 +1,8 @@
+.idea/*
+target/*
+*.iml
+logs
+*.DS_Store
+social/scripts/kafka*
+social/scripts/redis*
+
