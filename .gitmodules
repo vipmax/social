@@ -1,0 +1,3 @@
+[submodule "osn-crawler"]
+	path = osn-crawler
+	url = git@github.com:vipmax/osn-crawler.git
