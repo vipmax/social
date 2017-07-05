@@ -75,8 +75,7 @@ object DbStream {
   }
 
   implicit val name = "SocialApp"
-
-
+  
   class SocialApp extends CrawlerClient {
     override def afterBalancerWakeUp() {
       context.system.scheduler.schedule(
@@ -100,12 +99,10 @@ object DbStream {
     }
   }
 
-  new Thread(new Runnable {
-    override def run() = {
-      startKafkaStream()
-      startCrawlerClient()
-    }
-  }).start()
+
+  startKafkaStream()
+  startCrawlerClient()
+
 
   private def startKafkaStream() {
     Consumer.committableSource(consumerSettings, Subscriptions.topics("posts"))
@@ -114,10 +111,8 @@ object DbStream {
 
   private def startCrawlerClient() {
     // TODO: only for local debug mode
-    CrawlerMaster.main(Array())
-    CrawlerAgent.main(Array())
-
-    Thread.sleep(5000)
+//    CrawlerMaster.main(Array())
+//    CrawlerAgent.main(Array())
 
     val masterIp = Util.getCurrentIp() // TODO: add parameter to setttings file
     val myIp = Util.getCurrentIp()
@@ -127,6 +122,6 @@ object DbStream {
       CrawlerConfig.getConfig(clusterName, masterIp, myIp, name)
     )
     system.actorOf(Props[SocialApp], name)
-    system.whenTerminated
+//    system.whenTerminated
   }
 }

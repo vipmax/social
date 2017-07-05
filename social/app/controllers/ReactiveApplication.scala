@@ -9,7 +9,7 @@ class ReactiveApplication /*@Inject()(ws: WSClient)*/ extends Controller {
 
   def index = Action {
 
-    Ok(views.html.main(getCurrentIp()))
+    Ok(views.html.index())
   }
 
   def scroll = Action {
