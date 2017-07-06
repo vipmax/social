@@ -12,7 +12,7 @@ object WebSocketReceiverActor {
 }
 
 class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor with ActorLogging {
-  val userTopics = mutable.Set[String]("spb")
+  val userTopics = mutable.Set[String]()
 
   override def preStart() {
     Logger.info("New web-socket connection created")

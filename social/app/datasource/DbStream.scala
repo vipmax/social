@@ -53,16 +53,6 @@ object DbStream {
     .withGroupId("social")
     .withMaxWakeups(10)
 
-  def handleMessage(msg: CommittableMessage[String, String]) = {
-    val dbo = JSON.parse(msg.record.value()).asInstanceOf[BasicDBObject]
-    val data = DbUtil.convert(dbo)
-    println(data)
-
-    val topic = data.getString("topic")
-    synchronized {
-      topicsToUsers(topic).foreach(u => u ! data.toJson)
-    }
-  }
 
   implicit val name = "SocialApp"
   
