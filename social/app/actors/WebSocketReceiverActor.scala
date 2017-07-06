@@ -1,6 +1,6 @@
 package actors
 
-import akka.actor.{Actor, ActorRef, Props}
+import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import play.api.Logger
 
 import scala.collection.mutable
@@ -11,8 +11,8 @@ object WebSocketReceiverActor {
   def props(outputChannel: ActorRef) = Props(WebSocketReceiverActor(outputChannel))
 }
 
-class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor {
-  val userTopics = mutable.Set("sea")
+class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor with ActorLogging {
+  val userTopics = mutable.Set[String]("spb")
 
   override def preStart() {
     Logger.info("New web-socket connection created")
@@ -29,14 +29,16 @@ class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor {
         Logger.info(s"Received message: $message")
         message match {
           case t if t.startsWith("addTopic:") =>
-            val newTopic = t.substring("addTopic:".length)
-            userTopics += newTopic
-            datasource.DbStream.addTopic(newTopic, outputChannel)
+            log.info(s"addTopic: $t" )
+            val topic = t.substring("addTopic:".length).toLowerCase()
+            userTopics += topic
+            datasource.DbStream.addTopic(topic, outputChannel)
 
           case t if t.startsWith("removeTopic:") =>
-            val newTopic = t.substring("removeTopic:".length)
-            userTopics -= newTopic
-            datasource.DbStream.removeTopic(newTopic, outputChannel)
+            log.info(s"removeTopic: $t" )
+            val topic = t.substring("removeTopic:".length).toLowerCase()
+            userTopics -= topic
+            datasource.DbStream.removeTopic(topic, outputChannel)
         }
     }
 }

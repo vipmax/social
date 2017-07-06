@@ -8,7 +8,6 @@ GET     /scroll                     controllers.ReactiveApplication.scroll
 
 # Websocket endpoints
 GET     /ws                         controllers.ReactiveApplication.reactive
-POST     /addTag                     controllers.ReactiveApplication.addTag(tag: String)
 
 
 # Map static resources from the /public folder to the /assets URL path

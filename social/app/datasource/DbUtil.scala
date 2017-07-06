@@ -16,10 +16,12 @@ import scala.collection.mutable
 
 object DbUtil {
   def convert(document: BasicDBObject) = {
-    document.get("network") match {
+    val doc = document.get("network") match {
       case "vkontakte" => vkontakteParse(document)
       case "instagram" => instagramParse(document)
     }
+    doc.append("network",document.get("network"))
+    doc
   }
 
   private def instagramParse(document: BasicDBObject) = {

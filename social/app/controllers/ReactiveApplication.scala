@@ -9,7 +9,7 @@ class ReactiveApplication /*@Inject()(ws: WSClient)*/ extends Controller {
 
   def index = Action {
 
-    Ok(views.html.index())
+    Ok(views.html.index(getCurrentIp()))
   }
 
   def scroll = Action {
@@ -18,11 +18,6 @@ class ReactiveApplication /*@Inject()(ws: WSClient)*/ extends Controller {
 
   def reactive = WebSocket.acceptWithActor[String, String] {
     request => WebSocketReceiverActor.props
-  }
-
-  def addTag(tag: String) = Action  {
-    println("tag = " + tag)
-    Ok("added")
   }
 
   def getCurrentIp(): String = {

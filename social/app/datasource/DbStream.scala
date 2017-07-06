@@ -31,14 +31,7 @@ object DbStream {
 
   val key = "topics"
 
-  /** remove all topics first */
-//  jedis.smembers(key).foreach(topic => jedis.srem(key, topic))
-
   def addTopic(topic: String, userChannel:ActorRef) = synchronized {
-//    if(!topicsToUsers.containsKey(topic)) {
-//      jedis.sadd(key, topic)
-//    }
-
     val users = topicsToUsers.getOrElse(topic, mutable.HashSet())
     users += userChannel
     topicsToUsers(topic) = users
@@ -47,10 +40,7 @@ object DbStream {
   def removeTopic(topic: String, userChannel:ActorRef) = synchronized {
     val users = topicsToUsers(topic)
     users -= userChannel
-//    if (users.isEmpty) {
-//      topicsToUsers -= topic
-//      jedis.srem(key, topic)
-//    }
+    if(users.isEmpty) topicsToUsers -= topic
   }
 
   implicit val actorSystem = ActorSystem()
@@ -86,10 +76,12 @@ object DbStream {
     override def receiveMassage(massage: Any): Unit = massage match {
       case "instagram" =>
        topicsToUsers.keys.foreach { topic =>
+
          val task = InstagramNewGeoPostsSearchTask(
            query = topic,
            saverInfo = KafkaUniqueSaverInfo("localhost:9092", "localhost", "posts")
          )
+         log.info(s"Sending task $task to master")
          send(task)
        }
     }
@@ -106,7 +98,23 @@ object DbStream {
 
   private def startKafkaStream() {
     Consumer.committableSource(consumerSettings, Subscriptions.topics("posts"))
-      .runForeach(handleMessage)(materializer)
+      .runForeach{msg =>
+        val dbo = JSON.parse(msg.record.value()).asInstanceOf[BasicDBObject]
+        val data = DbUtil.convert(dbo)
+        println(data)
+
+        val topic = data.getString("topic")
+        synchronized {
+          if(topicsToUsers.contains(topic)){
+            topicsToUsers(topic).foreach(u => u ! data.toJson)
+          }
+        }
+      }(materializer)
+      .onFailure{
+        case e:Exception =>
+          println("stream exception ")
+          e.printStackTrace()
+      }(actorSystem.dispatcher)
   }
 
   private def startCrawlerClient() {

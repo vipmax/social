@@ -1,3 +1,5 @@
+@(serverIp: String)
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +33,19 @@
     <script src="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe-ui-default.min.js"></script>
 
     <script src="http://rawgit.com/iamdustan/smoothscroll/master/dist/smoothscroll.js"></script>
+    <script src="http://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.min.js"></script>
 
     <script type="text/javascript">
+        isTesting = false;
 
+        testposts = [
+            { "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN0653jNe3" , "username" : "margaritka_volna" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11007983_731662840281308_763305659_a.jpg" , "lat" : 59.93922 , "long" : 30.35128 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/margaritka_volna" , "text" : "#cococospb  #spb  #белыеночи #потрясающиевыходные #десерт  #маминлюбимыйцветок #вкусняшка" , "network" : "instagram"}
+            ,{ "topic" : "tver" , "post_url" : "https://www.instagram.com/p/BWNxtDigS-7" , "username" : "anastaciakuznetsova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19624993_149166895646467_5925469956828299264_a.jpg" , "lat" : 57.15 , "long" : 34.616666666667 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg" , "width" : 1080 , "height" : 1349 , "user_url" : "https://www.instagram.com/anastaciakuznetsova" , "text" : "#tver #russia #vsco #vscorussia #vscotver #nature #water #lake #grass #green #sky #blue #beautiful #landscape" , "network" : "instagram"}
+            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN05fsDtEt" , "username" : "azeonline" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19765100_187373398462522_6945908054114172928_a.jpg" , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg" , "width" : 640 , "height" : 640 , "user_url" : "https://www.instagram.com/azeonline" , "text" : "#aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия" , "network" : "instagram"}
+            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN01CRD13f" , "username" : "nastasiasheff" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17818533_236926246774389_6907981203672924160_a.jpg" , "lat" : 59.95 , "long" : 30.3167 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/nastasiasheff" , "text" : "Лето .\n.\n.\n#лето2017 #фрукты #frühstück #fruits #followforfollow #fotooftheday #summer #somer #saintpetersburg #spb #spbgram #vsco #vscocam" , "network" : "instagram"}
+            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN0xQrBll-" , "username" : "elin_lis" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11032776_442479069240299_2043047404_a.jpg" , "lat" : 59.946111111111 , "long" : 30.373333333333 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/elin_lis" , "text" : "Мой Инстаграмм постепенно превращается в блог о видах Санкт-Петербурга.Оо #spb  #spbgram #spb❤️ #таврическийсад #sun #nature" , "network" : "instagram"}
+
+        ]
     </script>
 
     <style>
@@ -101,43 +113,228 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+    </style>
+    <style>
+        .pswp--zoom-allowed .pswp__img {
+            cursor: default !important
+        }
+        #pswp-preview-img-a {
+            position: absolute;
+            padding: 3px;
+            z-index: 9999;
+        }
+        #pswp-preview-text-a {
+            position: absolute;
+            margin-left: 45px;
+            padding: 3px;
+            z-index: 9999;
+            color: #CCC;
+        }
+
+        #menu-button {
+            font-size: 25px;
+            cursor: pointer;
+            z-index: 100;
+            position: absolute;
+            color: rgba(241, 241, 241, 0.57);
+            left:1%
+        }
+    </style>
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            text-align:center;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+
+        }
+
+        .sidenav a:hover{
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
 
     </style>
+
+    <style>
+        /* Include the padding and border in an element's total width and height */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Remove margins and padding from the list */
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the list items */
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+
+            /* make the list items unselectable */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Set all odd list items to a different color (zebra-stripes) */
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        /* Darker background-color on hover */
+        ul li:hover {
+            /*background: #ddd;*/
+        }
+
+        /* When clicked on, add a background color and strike out text */
+        ul li.checked {
+            background: #888;
+            /*color: #fff;*/
+            text-decoration: line-through;
+        }
+
+        /* Add a "checked" mark when clicked on */
+        ul li.checked::before {
+            content: '';
+            position: absolute;
+            /*border-color: #fff;*/
+            border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 10px;
+            left: 16px;
+            transform: rotate(45deg);
+            height: 15px;
+            width: 7px;
+        }
+
+        /* Style the close button */
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 12px 16px 12px 16px;
+        }
+
+        .close:hover {
+            /*background-color: #f44336;*/
+            /*color: white;*/
+        }
+
+        /* Style the header */
+        .header {
+            /*background-color: #f44336;*/
+            padding: 30px 40px;
+            /*color: white;*/
+            text-align: center;
+        }
+
+        /* Clear floats after the header */
+        .header:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Style the input */
+        input {
+            border: none;
+            width: 75%;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+            color: black ;
+        }
+
+        /* Style the "Add" button */
+        .addBtn {
+            padding: 10px;
+            width: 25%;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .addBtn:hover {
+            background-color: #bbb;
+        }
+    </style>
+
+    <script>
+        function onTopicAdded(topic) {
+            console.log("added topic: " + topic);
+            if(!isTesting) socket.send("addTopic:"     + topic)
+        }
+        function onTopicRemoved(topic) {
+            console.log("added topic: " + topic);
+            if(!isTesting) socket.send("removeTopic:"  + topic)
+        }
+    </script>
 
     <script>
         var openPhotoSwipe = function (post) {
             var pswpElement = document.querySelectorAll('.pswp')[0];
+            $("#pswp-preview-img").attr("src", post.user_photo_url);
+            $("#pswp-preview-img-a").attr("href", post.user_url);
+            $("#pswp-preview-text-a").html( post.username + " <br> " + post.network + ' topic:' + post.topic);
+            $("#pswp-preview-text-a").attr("href", post.user_url);
+
 
             var items = [
-                // pic
                 {
                     src: post.photo_url,
                     w: post.width,
                     h: post.height,
-                    title: post.text
-                },
-                // post info
-                {
-                    html: '<br><br><br>' +
-                    '<div style="text-align: center;">' +
-                    '<img  width=200 height=200 src=' + post.user_photo_url + '>' +
-                    '<br>' +
-                    '<a href=' + post.user_url + ' target=_blank style="color: #CCC;">' + post.username + '</a>' +
-                    '<br><br>' +
-                    '<a href=' + post.post_url + ' target=_blank style="color: #CCC;">' + post.text + '</a>' +
-                    '</div>'
-                }
+                    title: '<a href=' + post.post_url + ' target=_blank style="color: #CCC;">' + post.text + '</a>' + '<br>'
 
+                }
             ];
 
             var options = {
-                // history & focus options are disabled on CodePen
                 history: false,
                 focus: false,
-
                 showAnimationDuration: 0,
-                hideAnimationDuration: 0
-
+                hideAnimationDuration: 0,
+                maxSpreadZoom: 1,
+                getDoubleTapZoom: function (isMouseClick, item) {
+                    return item.initialZoomLevel;
+                },
+                // UI options
+                zoomEl: false
             };
 
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
@@ -145,6 +342,8 @@
         };
 
     </script>
+
+
 
 </head>
 <body>
@@ -154,6 +353,95 @@
         <div id="scroller"></div>
     </div>
 </footer>
+
+<div id="mySidenav" class="sidenav" style="z-index: 1000">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div id="myDIV" class="header">
+        <h2 style="color: #CCC">My topics</h2>
+        <input type="text" id="myInput" placeholder="example: spb">
+        <span onclick="newElement()" class="addBtn">Add</span>
+        <br><br><br>
+        <ul id="myUL" >
+            <li>spb <span class="close">×</span></li>
+         </ul>
+    </div>
+</div>
+<script>
+    // Create a "close" button and append it to each list item
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+            console.log("remove tag")
+        }
+    }
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+            document.getElementById("myInput").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+            onTopicAdded(inputValue);
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                    onTopicRemoved(inputValue);
+
+                }
+            }
+        }
+    }
+
+    document.getElementById('myInput').onkeypress = function(e){
+        if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == '13'){
+            newElement()
+            return false;
+        }
+    }
+</script>
+
+<span id="menu-button" onclick="openNav()"> &#9776; </span>
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "100%";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -182,6 +470,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
 
                 <div class="pswp__counter"></div>
 
+
                 <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
                 <button class="pswp__button pswp__button--share" title="Share"></button>
@@ -189,6 +478,8 @@ It's a separate element, as animating opacity is faster than rgba(). -->
                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
 
                 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <a id="pswp-preview-img-a"  target=_blank><img id="pswp-preview-img" width="40" height="40" ></a>
+                <a id="pswp-preview-text-a" target=_blank></a>
 
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
                 <!-- element will get class pswp__preloader--active when preloader is running -->
@@ -280,30 +571,42 @@ It's a separate element, as animating opacity is faster than rgba(). -->
     var imgCount = 1;
     var isHorizontalScroll = true;
 
-    $("#scroller").mouseover(function () {
-        isHorizontalScroll = false;
-        console.log("flag = true");
+    $("#scroller").mouseover(function () { isHorizontalScroll = false; });
+    $("#scroller").mouseout(function () { isHorizontalScroll = true; });
+    $("#scroller").mousewheel(function(evt, chg) {
+        var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+        if(!isMac){
+            this.scrollLeft -= (chg * 40 );
+            evt.preventDefault();
+        }
     });
-    $("#scroller").mouseout(function () {
-        isHorizontalScroll = true;
-        console.log("flag = false");
 
-    });
+
+
+
+
+
 
     function handlePost(post) {
-        console.log("post = " + post);
 
         try {
             addPostToMap(post);
             removeOldPost();
-            console.log("post with geo");
+//            console.log("post with geo");
         } catch (err) {
-            console.log("post without geo");
+//            console.log("post without geo");
         }
 
         $("#scroller").append('<div class="elem" id="img' + imgCount + '">' +
-            '<img onclick=locate(' + post.lat + ',' + post.long + ') ' + 'src=' + post.photo_url + '>' +
+                '<img src=' + post.photo_url + '>' +
             '</div>');
+
+        $("#img" + imgCount).click(function() {
+            locate(post.lat, post.long);
+        });
+        $("#img" + imgCount).dblclick(function() {
+            openPhotoSwipe(post);
+        });
 
         if (isHorizontalScroll) {
             document.getElementById('img' + imgCount).scrollIntoView({
@@ -321,31 +624,37 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         //         '</li>');
     }
 
+    // for testing only
+    if(isTesting){
+        setInterval(function () {
+            handlePost(testposts[Math.floor(Math.random() * testposts.length)])
+        }, 2000);
+    }
+    else {
+        window.onload = function () {
+            socket = null;
+            isopen = false;
 
-    window.onload = function () {
-        var socket = null;
-        var isopen = false;
+           // socket = new WebSocket("ws://localhost:9000/ws");
+            socket = new WebSocket("ws://@serverIp:9000/ws");
+            socket.binaryType = "arraybuffer";
+            socket.onopen = function () {
+                console.log("Connected!");
+                isopen = true;
+            };
 
-        // socket = new WebSocket("ws://:9000/ws");
-        socket = new WebSocket("ws://localhost:9000/ws");
-        socket.binaryType = "arraybuffer";
-        socket.onopen = function () {
-            console.log("Connected!");
-            isopen = true;
-        };
+            socket.onmessage = function (e) {
+                if (typeof e.data === "string") {
+                    handlePost(JSON.parse(e.data))
+                }
+            };
 
-        socket.onmessage = function (e) {
-            if (typeof e.data == "string") {
-                handlePost(JSON.parse(e.data))
+            socket.onclose = function (e) {
+                console.log("Connection closed.");
+                location.reload();
             }
         };
-
-        socket.onclose = function (e) {
-            console.log("Connection closed.");
-            location.reload();
-        }
-    };
-
+    }
 
 </script>
 
