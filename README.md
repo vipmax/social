@@ -12,6 +12,6 @@ cd ../social/scripts
 
 ./status_redis_zoo_kafka.sh
 
-cd ..
+cd ../social
 
 ./activator run

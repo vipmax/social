@@ -195,10 +195,12 @@
         ul li {
             cursor: pointer;
             position: relative;
-            padding: 12px 8px 12px 40px;
+            padding: 12px 8px 12px;
             background: #eee;
             font-size: 18px;
             transition: 0.2s;
+            text-align: center;
+
 
             /* make the list items unselectable */
             -webkit-user-select: none;
@@ -275,6 +277,9 @@
             font-size: 16px;
             color: black ;
         }
+        elem {
+            text-align: center;
+        }
 
         /* Style the "Add" button */
         .addBtn {
@@ -289,18 +294,34 @@
             transition: 0.3s;
         }
 
-        .addBtn:hover {
-            background-color: #bbb;
+        .removeBtn {
+            background: #d9d9d9;
+            border: none;
+            color: #555;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            height: 60%;
         }
     </style>
 
     <script>
+        topics = [];
+
         function onTopicAdded(topic) {
+            if(topics.includes(topic)) return;
+
+            topics.push(topic);
             console.log("added topic: " + topic);
             if(!isTesting) socket.send("addTopic:"     + topic)
         }
         function onTopicRemoved(topic) {
-            console.log("added topic: " + topic);
+            topics.splice(topics.indexOf(topic),1);
+            console.log("removed topic: " + topic);
             if(!isTesting) socket.send("removeTopic:"  + topic)
         }
     </script>
@@ -358,36 +379,25 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
     <div id="myDIV" class="header">
-        <h2 style="color: #CCC">My topics</h2>
-        <input type="text" id="myInput" placeholder="example: spb">
-        <span onclick="newElement()" class="addBtn">Add</span>
+        <div>
+            <h2 style="color: #CCC">My topics</h2>
+            <input type="text" id="myInput" placeholder="example: spb">
+            <span onclick="newElement()" class="addBtn">Add</span>
+        </div>
         <br><br><br>
-        <ul id="myUL" >
-         </ul>
+        <ul id="myUL" class="topics"></ul>
+
+        <div style="margin-top: 10px">
+            <span onclick="removeAll()" class="removeBtn">Remove all</span>
+            <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
+            <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
+        </div>
+
+
     </div>
 </div>
 <script>
-    // Create a "close" button and append it to each list item
-    var myNodelist = document.getElementsByTagName("LI");
-    var i;
-    for (i = 0; i < myNodelist.length; i++) {
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
-        myNodelist[i].appendChild(span);
-    }
 
-    // Click on a close button to hide the current list item
-    var close = document.getElementsByClassName("close");
-    var i;
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function() {
-            var div = this.parentElement;
-            div.style.display = "none";
-            console.log("remove tag")
-        }
-    }
 
     // Create a new list item when clicking on the "Add" button
     function newElement() {
@@ -399,6 +409,8 @@
         if (inputValue === '') {
             alert("You must write something!");
         } else {
+            li.className = inputValue;
+
             document.getElementById("myUL").appendChild(li);
             document.getElementById("myInput").value = "";
 
@@ -406,18 +418,14 @@
             var txt = document.createTextNode("\u00D7");
             span.className = "close";
             span.appendChild(txt);
+            span.onclick = function() {
+                var div = this.parentElement;
+                div.remove();
+                onTopicRemoved(inputValue);
+            };
             li.appendChild(span);
 
             onTopicAdded(inputValue);
-
-            for (i = 0; i < close.length; i++) {
-                close[i].onclick = function() {
-                    var div = this.parentElement;
-                    div.style.display = "none";
-                    onTopicRemoved(inputValue);
-
-                }
-            }
         }
     }
 
@@ -567,6 +575,17 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         }
     }
 
+    function removeAll() {
+        removeAllPost();
+        removeAllPostFromScroll();
+    }
+    function removeAllPost() {
+        Array.from(postsQueue).forEach(m => map.removeLayer(m));
+    }
+    function removeAllPostFromScroll() {
+        Array.from(document.getElementsByClassName("elem")).forEach(el=> el.remove());
+    }
+
     var imgCount = 1;
     var isHorizontalScroll = true;
 
@@ -581,20 +600,18 @@ It's a separate element, as animating opacity is faster than rgba(). -->
     });
 
 
-
-
-
-
+    function wrongTopic(topic) {
+        console.log("wrongTopic:" + topic);
+        Array.from(document.getElementsByClassName(topic)).forEach(el=> el.remove());
+        alert("Something wrong with topic " + topic);
+    }
 
     function handlePost(post) {
 
         try {
             addPostToMap(post);
             removeOldPost();
-//            console.log("post with geo");
-        } catch (err) {
-//            console.log("post without geo");
-        }
+        } catch (err) { }
 
         $("#scroller").append('<div class="elem" id="img' + imgCount + '">' +
                 '<img src=' + post.photo_url + '>' +
@@ -614,13 +631,6 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             });
         }
         imgCount += 1;
-
-        // $("#postslist").append('<li>' +
-        //         '<div style="text-align:  center">' +
-        //         '<img onclick=locate('+post.lat +',' + post.long + ') ' +  'src=' + post.photo_url + '>' +
-        //         '<a href=' + post.post_url + ' target=_blank >' + post.text.substring(0,25) +'</a>' +
-        //         '</div>' +
-        //         '</li>');
     }
 
     // for testing only
@@ -644,7 +654,14 @@ It's a separate element, as animating opacity is faster than rgba(). -->
 
             socket.onmessage = function (e) {
                 if (typeof e.data === "string") {
-                    handlePost(JSON.parse(e.data))
+                    var data = JSON.parse(e.data);
+
+                    if(data.hasOwnProperty("wrongTopic")){
+                        wrongTopic(data.wrongTopic)
+                    }
+                    else {
+                        handlePost(data)
+                    }
                 }
             };
 

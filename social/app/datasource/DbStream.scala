@@ -1,6 +1,6 @@
 package datasource
 
-import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.actor.{ActorLogging, ActorRef, ActorSystem, Props}
 import akka.kafka.ConsumerMessage.CommittableMessage
 import akka.kafka.scaladsl.Consumer
 import akka.kafka.{ConsumerSettings, Subscriptions}
@@ -8,7 +8,7 @@ import akka.stream.ActorMaterializer
 import com.crawler.core.runners.{CrawlerAgent, CrawlerClient, CrawlerConfig, CrawlerMaster}
 import com.crawler.dao.KafkaUniqueSaverInfo
 import com.crawler.osn.common.TaskDataResponse
-import com.crawler.osn.instagram.InstagramNewGeoPostsSearchTask
+import com.crawler.osn.instagram.{InstagramNewGeoPostsSearchTask, InstagramNewGeoPostsSearchTaskFailureResponse}
 import com.crawler.util.Util
 import com.mongodb.BasicDBObject
 import com.mongodb.util.JSON
@@ -38,9 +38,11 @@ object DbStream {
   }
 
   def removeTopic(topic: String, userChannel:ActorRef) = synchronized {
-    val users = topicsToUsers(topic)
-    users -= userChannel
-    if(users.isEmpty) topicsToUsers -= topic
+    if(topicsToUsers.containsKey(topic)) {
+      val users = topicsToUsers(topic)
+      users -= userChannel
+      if(users.isEmpty) topicsToUsers -= topic
+    }
   }
 
   implicit val actorSystem = ActorSystem()
@@ -56,7 +58,7 @@ object DbStream {
 
   implicit val name = "SocialApp"
   
-  class SocialApp extends CrawlerClient {
+  class SocialApp extends CrawlerClient with ActorLogging {
     override def afterBalancerWakeUp() {
       context.system.scheduler.schedule(
         0 seconds, 10 seconds, self, "instagram"
@@ -69,13 +71,24 @@ object DbStream {
 
          val task = InstagramNewGeoPostsSearchTask(
            query = topic,
-           saverInfo = KafkaUniqueSaverInfo("localhost:9092", "localhost", "posts")
+           saverInfo = KafkaUniqueSaverInfo("localhost:9092", "localhost", "posts"),
+           responseActor = self
          )
          log.info(s"Sending task $task to master")
          send(task)
        }
     }
     override def handleTaskDataResponse(tr: TaskDataResponse) = tr match {
+      case InstagramNewGeoPostsSearchTaskFailureResponse(task, resultData, exception) =>
+        log.error(s"wrongTopic ${task.query}")
+
+        val wrongTopic = task.query
+        if(topicsToUsers.containsKey(wrongTopic)) {
+          val json = new BasicDBObject("wrongTopic", wrongTopic).toJson
+          topicsToUsers(wrongTopic).foreach(user => user ! json)
+          topicsToUsers -= wrongTopic
+        }
+
       case any: TaskDataResponse =>
         println(s"any response = ${any.getClass.getSimpleName}")
     }
