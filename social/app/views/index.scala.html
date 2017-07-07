@@ -433,7 +433,7 @@
         if (!e) e = window.event;
         var keyCode = e.keyCode || e.which;
         if (keyCode == '13'){
-            newElement()
+            newElement();
             return false;
         }
     }
@@ -617,9 +617,11 @@ It's a separate element, as animating opacity is faster than rgba(). -->
                 '<img src=' + post.photo_url + '>' +
             '</div>');
 
-        $("#img" + imgCount).click(function() {
-            locate(post.lat, post.long);
-        });
+        if(post.hasOwnProperty("lat")) {
+            $("#img" + imgCount).click(function () {
+                locate(post.lat, post.long);
+            });
+        }
         $("#img" + imgCount).dblclick(function() {
             openPhotoSwipe(post);
         });
