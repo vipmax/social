@@ -2,10 +2,16 @@ package controllers
 
 import actors.WebSocketReceiverActor
 import akka.actor.ActorRef
+import com.crawler.core.runners.{CrawlerAgent, CrawlerMaster}
 import play.api.Play.current
 import play.api.mvc._
 
 class ReactiveApplication /*@Inject()(ws: WSClient)*/ extends Controller {
+
+
+  CrawlerMaster.main(Array())
+  CrawlerAgent.main(Array())
+  CrawlerAgent.main(Array())
 
   def index = Action {
 

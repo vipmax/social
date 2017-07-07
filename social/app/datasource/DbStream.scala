@@ -48,14 +48,6 @@ object DbStream {
   implicit val actorSystem = ActorSystem()
   implicit var materializer = ActorMaterializer()
 
-  val stringDeserializer = new StringDeserializer
-
-  var consumerSettings = ConsumerSettings(actorSystem, stringDeserializer, stringDeserializer)
-    .withBootstrapServers("localhost:9092")
-    .withGroupId("social")
-    .withMaxWakeups(10)
-
-
   implicit val name = "SocialApp"
   
   class SocialApp extends CrawlerClient with ActorLogging {
@@ -94,10 +86,12 @@ object DbStream {
     }
   }
 
+  val stringDeserializer = new StringDeserializer
 
-  startKafkaStream()
-  startCrawlerClient()
-
+  var consumerSettings = ConsumerSettings(actorSystem, stringDeserializer, stringDeserializer)
+    .withBootstrapServers("localhost:9092")
+    .withGroupId("social")
+    .withMaxWakeups(10)
 
   private def startKafkaStream() {
     Consumer.committableSource(consumerSettings, Subscriptions.topics("posts"))
@@ -120,6 +114,8 @@ object DbStream {
       }(actorSystem.dispatcher)
   }
 
+
+
   private def startCrawlerClient() {
     // TODO: only for local debug mode
 //    CrawlerMaster.main(Array())
@@ -135,4 +131,9 @@ object DbStream {
     system.actorOf(Props[SocialApp], name)
 //    system.whenTerminated
   }
+
+
+
+  startKafkaStream()
+  startCrawlerClient()
 }
