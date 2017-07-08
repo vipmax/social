@@ -1,26 +1,19 @@
-package datasource
+package util
 
 import java.util
 
-import akka.actor.ActorRef
-import com.mongodb.CursorType.TailableAwait
-import com.mongodb.client.FindIterable
-import com.mongodb.client.model.Filters
-import com.mongodb.{BasicDBObject, CursorType, MongoClient}
-import org.bson.Document
-import org.bson.conversions.Bson
-import org.joda.time.DateTime
+import com.mongodb.BasicDBObject
 
 import scala.collection.JavaConversions._
-import scala.collection.mutable
 
-object DbUtil {
+object Util {
   def convert(document: BasicDBObject) = {
     val doc = document.get("network") match {
       case "vkontakte" => vkontakteParse(document)
       case "instagram" => instagramParse(document)
     }
     doc.append("network",document.get("network"))
+    doc.append("key",document.get("key"))
     doc
   }
 

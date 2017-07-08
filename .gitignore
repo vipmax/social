@@ -7,4 +7,3 @@ social/scripts/kafka*
 social/scripts/redis*
 *.log
 dump.rdb
-

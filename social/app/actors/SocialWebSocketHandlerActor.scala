@@ -1,27 +1,30 @@
 package actors
 
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
+import datasource.KafkaStream
 import play.api.Logger
+import play.api.mvc.RequestHeader
 
 import scala.collection.mutable
 
 
-object WebSocketReceiverActor {
-  def apply(outappendChannel: ActorRef): WebSocketReceiverActor = new WebSocketReceiverActor(outappendChannel)
-  def props(outputChannel: ActorRef) = Props(WebSocketReceiverActor(outputChannel))
+object SocialWebSocketHandlerActor {
+  def props(outputChannel: ActorRef, initialRequest:RequestHeader, dbStream:KafkaStream) = {
+    Props(new SocialWebSocketHandlerActor(outputChannel, initialRequest,dbStream))
+  }
 }
 
-class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor with ActorLogging {
+class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:RequestHeader, dbStream:KafkaStream) extends Actor with ActorLogging {
   val userTopics = mutable.Set[String]()
 
   override def preStart() {
-    Logger.info("New web-socket connection created")
-    userTopics.foreach(t => datasource.DbStream.addTopic(t, outputChannel))
+    Logger.info(s"New web-socket connection created from ${initialRequest.remoteAddress}")
+    userTopics.foreach(t => dbStream.addTopic(t, outputChannel))
   }
 
     override def postStop(){
       Logger.info("Web-socket connection closed")
-      userTopics.foreach(t => datasource.DbStream.removeTopic(t, outputChannel))
+      userTopics.foreach(t => dbStream.removeTopic(t, outputChannel))
     }
 
     def receive = {
@@ -32,13 +35,13 @@ class WebSocketReceiverActor(outputChannel: ActorRef) extends Actor with ActorLo
             log.info(s"addTopic: $t" )
             val topic = t.substring("addTopic:".length).toLowerCase()
             userTopics += topic
-            datasource.DbStream.addTopic(topic, outputChannel)
+            dbStream.addTopic(topic, outputChannel)
 
           case t if t.startsWith("removeTopic:") =>
             log.info(s"removeTopic: $t" )
             val topic = t.substring("removeTopic:".length).toLowerCase()
             userTopics -= topic
-            datasource.DbStream.removeTopic(topic, outputChannel)
+            dbStream.removeTopic(topic, outputChannel)
         }
     }
 }

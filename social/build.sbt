@@ -1,4 +1,4 @@
-name := """play-reactive-web-sockets"""
+name := """play-social"""
 
 version := "1.0-SNAPSHOT"
 

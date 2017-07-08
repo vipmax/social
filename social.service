@@ -4,7 +4,7 @@ Description=Crawler Master Service
 [Service]
 Type=forking
 WorkingDirectory=/home/nano/sncrawler/
-ExecStart=./activator run -Dhttp.port=9999 &
+ExecStart=/target/universal/stage/bin/play-reactive-web-sockets -Dhttp.port=9999 &
 ExecStop=/bin/kill -TERM $MAINPID
 Restart=always
 

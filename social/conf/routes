@@ -3,11 +3,11 @@
 # ~~~~
 
 # basic alive check
-GET     /                           controllers.ReactiveApplication.index
-GET     /scroll                     controllers.ReactiveApplication.scroll
+GET     /                           controllers.SocialApplication.index
+GET     /scroll                     controllers.SocialApplication.scroll
 
 # Websocket endpoints
-GET     /ws                         controllers.ReactiveApplication.reactive
+GET     /ws                         controllers.SocialApplication.reactive
 
 
 # Map static resources from the /public folder to the /assets URL path

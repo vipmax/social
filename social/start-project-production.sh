@@ -1,0 +1,1 @@
+nohup ./target/universal/stage/bin/play-social -Dhttp.port=9999 -Dprod.ip="77.234.213.237" > social.log &
