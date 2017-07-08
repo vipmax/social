@@ -52,9 +52,9 @@ class KafkaStream(actorSystem: ActorSystem) {
         val dbo = JSON.parse(msg.record.value()).asInstanceOf[BasicDBObject]
         val data = util.Util.convert(dbo)
 
-        val isNewPost = dataKeys.add(data.getString("key"))
+        val isNewPost =  synchronized { dataKeys.add(data.getString("key")) }
         if(!isNewPost){
-          if(dataKeys.size >= 10)
+          if(dataKeys.size >= 1000)
             dataKeys -= dataKeys.head
 
           logger.debug(s"old data:$data")
