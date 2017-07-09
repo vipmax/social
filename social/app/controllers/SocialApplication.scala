@@ -21,14 +21,14 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
   CrawlerAgent.main(Array())
   CrawlerAgent.main(Array())
 
-  val dbStream = new KafkaStream(system)
+  val stream = new KafkaStream(system)
 
-  dbStream.startKafkaStream()
-  SocialApp.startCrawlerClient(dbStream)
+  stream.startKafkaStream()
+  SocialApp.startCrawlerClient(stream)
 
   def index = Action { req =>
     logger.info(s"Got request from ${req.domain}")
-    Ok(views.html.index(getCurrentIp()))
+    Ok(views.html.index())
   }
 
   def scroll = Action {
@@ -36,28 +36,7 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
   }
 
   def reactive = WebSocket.acceptWithActor[String, String] { request => out =>
-    SocialWebSocketHandlerActor.props(out,request,dbStream)
-  }
-
-  def getCurrentIp(): String = {
-    import java.net.NetworkInterface
-
-    import collection.JavaConversions._
-
-    val ip = System.getProperty("prod.ip")
-    if(ip != null) {
-      println("Use production mode on : " + ip)
-      return ip
-    }
-
-    NetworkInterface.getNetworkInterfaces.foreach{ ee =>
-      ee.getInetAddresses.foreach { i =>
-        if (i.getHostAddress.startsWith("192.168"))
-          return i.getHostAddress
-      }
-    }
-
-    return "127.0.0.1"
+    SocialWebSocketHandlerActor.props(out,request,stream)
   }
 
 }

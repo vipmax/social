@@ -18,19 +18,19 @@ import scala.concurrent.duration._
 object SocialApp {
   var isStarted = false
 
-  def startCrawlerClient(dbStream: KafkaStream) {
+  def startCrawlerClient(stream: KafkaStream) {
     if(isStarted) return
 
     val masterIp = Util.getCurrentIp() // TODO: add parameter to setttings file
     val myIp = Util.getCurrentIp()
 
     val system = ActorSystem(CrawlerConfig.clusterName, CrawlerConfig.getConfig(masterIp, myIp, classOf[SocialApp].getSimpleName))
-    system.actorOf(Props(new SocialApp(dbStream)), classOf[SocialApp].getSimpleName)
+    system.actorOf(Props(new SocialApp(stream)), classOf[SocialApp].getSimpleName)
     isStarted = true
   }
 }
 
-class SocialApp (dbStream: KafkaStream) extends CrawlerClient with ActorLogging {
+class SocialApp (stream: KafkaStream) extends CrawlerClient with ActorLogging {
   implicit val name = this.getClass.getSimpleName
 
   override def afterBalancerWakeUp() {
@@ -41,7 +41,7 @@ class SocialApp (dbStream: KafkaStream) extends CrawlerClient with ActorLogging 
 
   override def receiveMassage(massage: Any): Unit = massage match {
     case "instagram" =>
-      dbStream.topicsToUsers.keys.foreach { topic =>
+      stream.topicsToUsers.keys.foreach { topic =>
         val task = InstagramNewGeoPostsSearchTask(
           query = topic,
           saverInfo = KafkaUniqueSaverInfo("localhost:9092", "localhost", "posts"),
@@ -57,10 +57,10 @@ class SocialApp (dbStream: KafkaStream) extends CrawlerClient with ActorLogging 
       log.error(s"wrongTopic ${task.query}")
 
       val wrongTopic = task.query
-      if(dbStream.topicsToUsers.containsKey(wrongTopic)) {
+      if(stream.topicsToUsers.containsKey(wrongTopic)) {
         val json = new BasicDBObject("wrongTopic", wrongTopic).toJson
-        dbStream.topicsToUsers(wrongTopic).foreach(user => user ! json)
-        dbStream.topicsToUsers -= wrongTopic
+        stream.topicsToUsers(wrongTopic).foreach(user => user ! json)
+        stream.topicsToUsers -= wrongTopic
       }
 
     case any: TaskDataResponse =>

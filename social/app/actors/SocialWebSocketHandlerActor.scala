@@ -9,22 +9,22 @@ import scala.collection.mutable
 
 
 object SocialWebSocketHandlerActor {
-  def props(outputChannel: ActorRef, initialRequest:RequestHeader, dbStream:KafkaStream) = {
-    Props(new SocialWebSocketHandlerActor(outputChannel, initialRequest,dbStream))
+  def props(outputChannel: ActorRef, initialRequest:RequestHeader, stream:KafkaStream) = {
+    Props(new SocialWebSocketHandlerActor(outputChannel, initialRequest,stream))
   }
 }
 
-class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:RequestHeader, dbStream:KafkaStream) extends Actor with ActorLogging {
+class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:RequestHeader, stream:KafkaStream) extends Actor with ActorLogging {
   val userTopics = mutable.Set[String]()
 
   override def preStart() {
     Logger.info(s"New web-socket connection created from ${initialRequest.remoteAddress}")
-    userTopics.foreach(t => dbStream.addTopic(t, outputChannel))
+    userTopics.foreach(t => stream.addTopic(t, outputChannel))
   }
 
     override def postStop(){
       Logger.info("Web-socket connection closed")
-      userTopics.foreach(t => dbStream.removeTopic(t, outputChannel))
+      userTopics.foreach(t => stream.removeTopic(t, outputChannel))
     }
 
     def receive = {
@@ -35,13 +35,13 @@ class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:Reques
             log.info(s"addTopic: $t" )
             val topic = t.substring("addTopic:".length).toLowerCase()
             userTopics += topic
-            dbStream.addTopic(topic, outputChannel)
+            stream.addTopic(topic, outputChannel)
 
           case t if t.startsWith("removeTopic:") =>
             log.info(s"removeTopic: $t" )
             val topic = t.substring("removeTopic:".length).toLowerCase()
             userTopics -= topic
-            dbStream.removeTopic(topic, outputChannel)
+            stream.removeTopic(topic, outputChannel)
         }
     }
 }

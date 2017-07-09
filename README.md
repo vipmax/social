@@ -15,3 +15,5 @@ cd ../social/scripts
 cd ../social
 
 ./activator run
+
+try it on 77.234.213.237:9000

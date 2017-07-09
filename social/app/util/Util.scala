@@ -92,4 +92,25 @@ object Util {
 
     returned
   }
+
+  def getServerIp(): String = {
+    import java.net.NetworkInterface
+
+    import collection.JavaConversions._
+
+    val ip = System.getProperty("prod.ip")
+    if(ip != null) {
+      println("Use production mode on : " + ip)
+      return ip
+    }
+
+    NetworkInterface.getNetworkInterfaces.foreach{ ee =>
+      ee.getInetAddresses.foreach { i =>
+        if (i.getHostAddress.startsWith("192.168"))
+          return i.getHostAddress
+      }
+    }
+
+    return "127.0.0.1"
+  }
 }

@@ -57,11 +57,10 @@ class KafkaStream(actorSystem: ActorSystem) {
           if(dataKeys.size >= 1000)
             dataKeys -= dataKeys.head
 
-          logger.debug(s"old data:$data")
-          logger.debug(s"dataKeys size: ${dataKeys.size}")
+          logger.debug(s"old data: ${data.getString("post_url")} dataKeys size: ${dataKeys.size}")
         }
         else {
-          logger.debug(s"new data: $data")
+          logger.debug(s"new data: ${data.getString("post_url")}")
 
           val topic = data.getString("topic")
           synchronized {

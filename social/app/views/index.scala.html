@@ -1,4 +1,3 @@
-@(serverIp: String)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +53,6 @@
             height: 100%;
             margin: 0;
             padding: 0;
-
         }
 
         footer {
@@ -115,10 +113,30 @@
         }
     </style>
     <style>
+         .pswp__bg{
+             filter: blur(10px);
+             background-size: cover;
+             width: 110%;
+             height: 110%;
+             left: -15px;
+             right: -15px;
+             top: -15px;
+             bottom: -15px;
+             opacity: 1;
+             background-position:center;
+         }
+
         .pswp--zoom-allowed .pswp__img {
             cursor: default !important
         }
-        .pswp__caption{
+         .pswp__caption, .pswp__top-bar {
+             background-color: rgba(0, 0, 0, 0);
+         }
+         .pswp__ui--fit .pswp__top-bar, .pswp__ui--fit .pswp__caption {
+             background-color: rgba(0, 0, 0, 0);
+         }
+
+         .pswp__caption{
             max-height: 30%;
         }
 
@@ -140,7 +158,7 @@
             position: absolute;
             margin-left: 45px;
             z-index: 9999;
-            color: #CCC;
+            color: #fff;
             font-size: 120%
 
         }
@@ -150,7 +168,7 @@
             cursor: pointer;
             z-index: 100;
             position: absolute;
-            color: rgba(241, 241, 241, 0.57);
+            color: #fff;
             left:1%
         }
     </style>
@@ -179,10 +197,6 @@
 
         }
 
-        .sidenav a:hover{
-            color: #f1f1f1;
-        }
-
         .sidenav .closebtn {
             position: absolute;
             top: 0;
@@ -192,7 +206,6 @@
         }
 
     </style>
-
     <style>
         /* Include the padding and border in an element's total width and height */
         * {
@@ -207,6 +220,7 @@
 
         /* Style the list items */
         ul li {
+            list-style-type: none;
             cursor: pointer;
             position: relative;
             padding: 12px 8px 12px;
@@ -324,6 +338,14 @@
     </style>
 
     <script>
+        function generateColor() {
+            return "#"+((1<<24)*Math.random()|0).toString(16);
+        }
+
+        topicColors = new Map();
+
+    </script>
+    <script>
         topics = [];
 
         function onTopicAdded(topic) {
@@ -339,7 +361,6 @@
             if(!isTesting) socket.send("removeTopic:"  + topic)
         }
     </script>
-
     <script>
         var openPhotoSwipe = function (post) {
             var pswpElement = document.querySelectorAll('.pswp')[0];
@@ -348,46 +369,35 @@
             $("#pswp-preview-text-a").html( post.username + " <br> " + post.network + ' topic:' + post.topic);
             $("#pswp-preview-text-a").attr("href", post.user_url);
 
+            $(".pswp__bg").css({"background-image": "url("+post.photo_url+ ")"});
 
-            var items = [
-                {
-                    src: post.photo_url,
-                    w: post.width,
-                    h: post.height,
-                    title: '<a href=' + post.post_url + ' target=_blank style="color: #CCC; overflow-y: scroll;">' + post.text + '</a>' + '<br>'
-
-                }
-            ];
-
+            items = [{
+                src: post.photo_url,
+                w: post.width,
+                h: post.height,
+                title: '<a href=' + post.post_url + ' target=_blank style="color: #fff; overflow-y: scroll;">' + post.text + '</a>' + '<br>',
+            }];
             var options = {
                 history: false,
                 focus: false,
                 showAnimationDuration: 0,
                 hideAnimationDuration: 0,
                 maxSpreadZoom: 1,
-                getDoubleTapZoom: function (isMouseClick, item) {
-                    return item.initialZoomLevel;
-                },
-                // UI options
                 zoomEl: false
             };
 
-            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-            gallery.init();
+            pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+            pswp.init();
+
+            pswp.listen('gettingData', function(index, item) {
+                console.log('gettingData');
+            });
         };
 
     </script>
-
-
-
 </head>
 <body>
 
-<footer>
-    <div id="scroller-wrapper">
-        <div id="scroller"></div>
-    </div>
-</footer>
 
 <div id="mySidenav" class="sidenav" style="z-index: 1000">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -406,13 +416,9 @@
             <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
             <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
         </div>
-
-
     </div>
 </div>
 <script>
-
-
     // Create a new list item when clicking on the "Add" button
     function newElement() {
         var li = document.createElement("li");
@@ -424,6 +430,9 @@
             alert("You must write something!");
         } else {
             li.className = inputValue;
+            var color = generateColor();
+            li.style.backgroundColor = color;
+            topicColors.set(inputValue, color);
 
             document.getElementById("myUL").appendChild(li);
             document.getElementById("myInput").value = "";
@@ -450,7 +459,8 @@
             newElement();
             return false;
         }
-    }
+    };
+
 </script>
 
 <span id="menu-button" onclick="openNav()"> &#9776; </span>
@@ -535,6 +545,11 @@ It's a separate element, as animating opacity is faster than rgba(). -->
 
 <div id="map"></div>
 
+<footer>
+    <div id="scroller-wrapper">
+        <div id="scroller"></div>
+    </div>
+</footer>
 
 <script>
 
@@ -570,7 +585,6 @@ It's a separate element, as animating opacity is faster than rgba(). -->
     var postsQueue = [];
 
     function addPostToMap(post) {
-//                console.log(post.lat + " " + post.long + " " + post.photo_url);
         var marker = L.marker([parseFloat(post.lat), parseFloat(post.long)], {
             icon: new L.Icon.Default(),
             data: post
@@ -608,7 +622,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
     $("#scroller").mousewheel(function(evt, chg) {
         var isMac = navigator.platform.toUpperCase().indexOf('MAC')>=0;
         if(!isMac){
-            this.scrollLeft -= (chg * 40 );
+            this.scrollLeft -= (chg * 50 );
             evt.preventDefault();
         }
     });
@@ -628,7 +642,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         } catch (err) { }
 
         $("#scroller").append('<div class="elem" id="img' + imgCount + '">' +
-                '<img src=' + post.photo_url + '>' +
+                '<img src=' + post.photo_url + ' style="border-bottom:solid ' + topicColors.get(post.topic) + ' 5px">' +
             '</div>');
 
         if(post.hasOwnProperty("lat")) {
@@ -661,7 +675,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             isopen = false;
 
            // socket = new WebSocket("ws://localhost:9000/ws");
-            socket = new WebSocket("ws://@serverIp:9000/ws");
+            socket = new WebSocket("ws://@util.Util.getServerIp():9000/ws");
             socket.binaryType = "arraybuffer";
             socket.onopen = function () {
                 console.log("Connected to websocket!");
