@@ -15,7 +15,7 @@ object SocialWebSocketHandlerActor {
 }
 
 class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:RequestHeader, stream:KafkaStream) extends Actor with ActorLogging {
-  val userTopics = mutable.Set[String]()
+  val userTopics = mutable.Set[String]("питер")
 
   override def preStart() {
     Logger.info(s"New web-socket connection created from ${initialRequest.remoteAddress}")

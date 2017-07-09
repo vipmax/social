@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Online social scroll page</title>
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <script>
+             isTesting = true;
+
+             testposts = [
+                 {
+                     "topic": "spb",
+                     "post_url": "https://www.instagram.com/p/BWN0653jNe3",
+                     "username": "margaritka_volna",
+                     "user_photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11007983_731662840281308_763305659_a.jpg",
+                     "lat": 59.93922,
+                     "long": 30.35128,
+                     "photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg",
+                     "icon_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg",
+                     "width": 1080,
+                     "height": 1080,
+                     "user_url": "https://www.instagram.com/margaritka_volna",
+                     "text": "#cococospb  #spb  #белыеночи #потрясающиевыходные #десерт  #маминлюбимыйцветок #вкусняшка",
+                     "network": "instagram"
+                 }
+                 , {
+                     "topic": "tver",
+                     "post_url": "https://www.instagram.com/p/BWNxtDigS-7",
+                     "username": "anastaciakuznetsova",
+                     "user_photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19624993_149166895646467_5925469956828299264_a.jpg",
+                     "lat": 57.15,
+                     "long": 34.616666666667,
+                     "photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg",
+                     "icon_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg",
+                     "width": 1080,
+                     "height": 1349,
+                     "user_url": "https://www.instagram.com/anastaciakuznetsova",
+                     "text": "#tver #russia #vsco #vscorussia #vscotver #nature #water #lake #grass #green #sky #blue #beautiful #landscape",
+                     "network": "instagram"
+                 }
+                 , {
+                     "topic": "spb",
+                     "post_url": "https://www.instagram.com/p/BWN05fsDtEt",
+                     "username": "azeonline",
+                     "user_photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19765100_187373398462522_6945908054114172928_a.jpg",
+                     "photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg",
+                     "icon_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg",
+                     "width": 640,
+                     "height": 640,
+                     "user_url": "https://www.instagram.com/azeonline",
+                     "text": "#aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия #aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия#aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия #aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия #aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия#aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия",
+                     "network": "instagram"
+                 }
+                 , {
+                     "topic": "spb",
+                     "post_url": "https://www.instagram.com/p/BWN01CRD13f",
+                     "username": "nastasiasheff",
+                     "user_photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17818533_236926246774389_6907981203672924160_a.jpg",
+                     "lat": 59.95,
+                     "long": 30.3167,
+                     "photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg",
+                     "icon_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg",
+                     "width": 1080,
+                     "height": 1080,
+                     "user_url": "https://www.instagram.com/nastasiasheff",
+                     "text": "Лето .\n.\n.\n#лето2017 #фрукты #frühstück #fruits #followforfollow #fotooftheday #summer #somer #saintpetersburg #spb #spbgram #vsco #vscocam",
+                     "network": "instagram"
+                 }
+                 , {
+                     "topic": "spb",
+                     "post_url": "https://www.instagram.com/p/BWN0xQrBll-",
+                     "username": "elin_lis",
+                     "user_photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11032776_442479069240299_2043047404_a.jpg",
+                     "lat": 59.946111111111,
+                     "long": 30.373333333333,
+                     "photo_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg",
+                     "icon_url": "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg",
+                     "width": 1080,
+                     "height": 1080,
+                     "user_url": "https://www.instagram.com/elin_lis",
+                     "text": "Мой Инстаграмм постепенно превращается в блог о видах Санкт-Петербурга.Оо #spb  #spbgram #spb❤️ #таврическийсад #sun #nature",
+                     "network": "instagram"
+                 }
+
+             ]
+        </script>
+
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+
+
+            a {
+                max-width: 200px;
+                text-decoration: none;
+            }
+            p {
+                color: white;
+                z-index: 10;
+            }
+
+
+            img {
+                max-width: 100vw;
+                max-height: 95vh;
+                /*min-width: 95vw;*/
+                position: absolute;
+                margin: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+
+
+            .background-image {
+                background-image: url('http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_527bf56961712_1.JPG');
+                background-size: cover;
+                display: block;
+                filter: blur(10px);
+                -webkit-filter: blur(10px);
+                height: 800px;
+                left: 0;
+                position: absolute;
+                right: 0;
+                z-index: 1;
+                max-height:100vh;
+                background-position:center;
+                opacity: 1;
+                background-position:center;
+            }
+
+            .post-content {
+                background: rgba(255, 255, 255, 0.35);
+                border-radius: 3px;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+                font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+                position: relative;
+                z-index: 2;
+                text-align:center;
+                min-height: 99vh;
+            }
+
+            .post-container {
+                min-height:100vh;
+            }
+
+
+        </style>
+        <style>
+            .scroll-left {
+                height: 50px;
+                overflow: hidden;
+                position: relative;
+            }
+            .scroll-left p {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                line-height: 50px;
+                text-align: center;
+                /* Starting position */
+                -moz-transform:translateX(100%);
+                -webkit-transform:translateX(100%);
+                transform:translateX(100%);
+                /* Apply animation to this element */
+                -moz-animation: scroll-left 10s linear infinite;
+                -webkit-animation: scroll-left 10s linear infinite;
+                animation: scroll-left 20s linear infinite;
+            }
+            /* Move it (define the animation) */
+            @@-moz-keyframes scroll-left {
+                0%   { -moz-transform: translateX(100%); }
+                100% { -moz-transform: translateX(-100%); }
+            }
+            @@-webkit-keyframes scroll-left {
+                0%   { -webkit-transform: translateX(100%); }
+                100% { -webkit-transform: translateX(-100%); }
+            }
+            @@keyframes scroll-left {
+                0%   {
+                -moz-transform: translateX(100%); /* Browser bug fix */
+                -webkit-transform: translateX(100%); /* Browser bug fix */
+                transform: translateX(100%);
+            }
+            100% {
+                -moz-transform: translateX(-100%); /* Browser bug fix */
+                -webkit-transform: translateX(-100%); /* Browser bug fix */
+                transform: translateX(-100%);
+                }
+            }
+        </style>
+
+    </head>
+    <body >
+        <div id="scroll">
+            <div id="postslist"> </div>
+        </div>
+        <script>
+             function handlePost(post){
+                 $("#postslist")
+                         .append('<div class="post-container">' +
+                                 '<div class="background-image" style="background-image:url('+ post.photo_url+ ')"></div>' +
+                                 '<div class="post-content"' +
+                                     '<a target=_blank >' +
+                                         '<img  src=' + post.photo_url + '>' +
+                                 '<div class="scroll-left"><p>'+ post.text+'</p></div>' +
+                                     '</a>' +
+                                 '</div>' +
+                                 '</div>');
+             }
+
+             if (isTesting) {
+                 setInterval(function () {
+                     handlePost(testposts[Math.floor(Math.random() * testposts.length)])
+                 }, 2000);
+             }
+             else {
+                 window.onload = function () {
+                     isopen = false;
+
+                     //socket = new WebSocket("ws://@util.Util.getServerIp():9000/ws");
+                     socket.binaryType = "arraybuffer";
+                     socket.onopen = function () {
+                         console.log("Connected!");
+                         isopen = true;
+                     };
+                     socket.onclose = function (e) {
+                         console.log("Connection closed.");
+                         location.reload();
+                     };
+
+                     socket.onmessage = function (e) {
+                         if (typeof e.data == "string") {
+                             var post = JSON.parse(e.data);
+                             console.log("post = " + e.data);
+
+                            handlePost(post);
+                         }
+                     };
+                 };
+             }
+        </script>
+    </body>
+</html>

@@ -35,6 +35,10 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
     Ok(views.html.scroll())
   }
 
+  def scrollable = Action {
+    Ok(views.html.scrollablePage())
+  }
+
   def reactive = WebSocket.acceptWithActor[String, String] { request => out =>
     SocialWebSocketHandlerActor.props(out,request,stream)
   }
