@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(ws,
   "org.mongodb" % "mongo-java-driver" % "3.3.0",
   "redis.clients" % "jedis" % "2.9.0",
   "com.crawler" % "com.crawler" % "1.0",
-  "com.typesafe.akka" % "akka-stream-kafka_2.11" % "0.16"
+  "com.typesafe.akka" % "akka-stream-kafka_2.11" % "0.16",
+  "org.json4s" % "json4s-jackson_2.11" % "3.5.2"
 )
 
 

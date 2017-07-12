@@ -41,7 +41,7 @@ class SocialApp (stream: KafkaStream) extends CrawlerClient with ActorLogging {
 
   override def receiveMassage(massage: Any): Unit = massage match {
     case "instagram" =>
-      stream.topicsToUsers.keys.foreach { topic =>
+      stream.topicsData.keys.foreach { topic =>
         val task = InstagramNewGeoPostsSearchTask(
           query = topic,
           saverInfo = KafkaUniqueSaverInfo("localhost:9092", "localhost", "posts"),
@@ -57,10 +57,10 @@ class SocialApp (stream: KafkaStream) extends CrawlerClient with ActorLogging {
       log.error(s"wrongTopic ${task.query}")
 
       val wrongTopic = task.query
-      if(stream.topicsToUsers.containsKey(wrongTopic)) {
+      if(stream.topicsData.containsKey(wrongTopic)) {
         val json = new BasicDBObject("wrongTopic", wrongTopic).toJson
-        stream.topicsToUsers(wrongTopic).foreach(user => user ! json)
-        stream.topicsToUsers -= wrongTopic
+        stream.topicsData(wrongTopic).users.foreach(user => user ! json)
+        stream.topicsData -= wrongTopic
       }
 
     case any: TaskDataResponse =>

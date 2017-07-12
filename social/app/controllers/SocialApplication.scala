@@ -31,9 +31,6 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
     Ok(views.html.index())
   }
 
-  def scroll = Action {
-    Ok(views.html.scroll())
-  }
 
   def scrollable = Action {
     Ok(views.html.scrollablePage())

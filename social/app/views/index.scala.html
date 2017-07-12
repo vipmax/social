@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,14 +34,14 @@
     <script src="http://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.min.js"></script>
 
     <script type="text/javascript">
-        isTesting = false;
+        isTesting = true;
 
         testposts = [
-            { "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN0653jNe3" , "username" : "margaritka_volna" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11007983_731662840281308_763305659_a.jpg" , "lat" : 59.93922 , "long" : 30.35128 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761970_250863572093762_6562755786869571584_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/margaritka_volna" , "text" : "#cococospb  #spb  #белыеночи #потрясающиевыходные #десерт  #маминлюбимыйцветок #вкусняшка" , "network" : "instagram"}
-            ,{ "topic" : "tver" , "post_url" : "https://www.instagram.com/p/BWNxtDigS-7" , "username" : "anastaciakuznetsova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19624993_149166895646467_5925469956828299264_a.jpg" , "lat" : 57.15 , "long" : 34.616666666667 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764377_446403415741427_5192595618115092480_n.jpg" , "width" : 1080 , "height" : 1349 , "user_url" : "https://www.instagram.com/anastaciakuznetsova" , "text" : "#tver #russia #vsco #vscorussia #vscotver #nature #water #lake #grass #green #sky #blue #beautiful #landscape" , "network" : "instagram"}
-            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN05fsDtEt" , "username" : "azeonline" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/19765100_187373398462522_6945908054114172928_a.jpg" , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19764489_244284902752468_3394311756380635136_n.jpg" , "width" : 640 , "height" : 640 , "user_url" : "https://www.instagram.com/azeonline" , "text" : "#aztagram #art🎨 #msk #turkiye #instapic #garden #spb #жизнь #london #kiev #mlada #nature #newyork #paris #nsw #iran #sevgili #like4like #photo #söz #turkmen #aşk #ashgabat #natgeo #in #gence #свадьба #landspace #islamic #россия" , "network" : "instagram"}
-            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN01CRD13f" , "username" : "nastasiasheff" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17818533_236926246774389_6907981203672924160_a.jpg" , "lat" : 59.95 , "long" : 30.3167 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761427_134952923758858_8041833783629971456_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/nastasiasheff" , "text" : "Лето .\n.\n.\n#лето2017 #фрукты #frühstück #fruits #followforfollow #fotooftheday #summer #somer #saintpetersburg #spb #spbgram #vsco #vscocam" , "network" : "instagram"}
-            ,{ "topic" : "spb" , "post_url" : "https://www.instagram.com/p/BWN0xQrBll-" , "username" : "elin_lis" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/11032776_442479069240299_2043047404_a.jpg" , "lat" : 59.946111111111 , "long" : 30.373333333333 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19761400_780032038846146_3572900791515611136_n.jpg" , "width" : 1080 , "height" : 1080 , "user_url" : "https://www.instagram.com/elin_lis" , "text" : "Мой Инстаграмм постепенно превращается в блог о видах Санкт-Петербурга.Оо #spb  #spbgram #spb❤️ #таврическийсад #sun #nature" , "network" : "instagram"}
+            { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDalLH8V6" , "username" : "petpumprlova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17493461_138283886700602_2983715176395571200_a.jpg" , "lat" : 42.5667 , "long" : 14.1 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19985431_1770558046567963_1106955317201076224_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19985431_1770558046567963_1106955317201076224_n.jpg" , "width" : 1080 , "height" : 1302 , "user_url" : "https://www.instagram.com/petpumprlova" , "text" : "Po 7letech jsem nejela letos pracovat do itosky a tak hnusny pocasi tady,tak aspon male pripomenuti- PRIMETIME❤\n#holiday #vacanza #mare #sea #italy #mygirl #frend #sun #primetime #view #like4like #likeforlike #picoftheday 🌊☀️🇮🇹❤👩‍❤️‍👩" , "network" : "instagram" , "key" : "BWdDalLH8V6" , "topicStatistic" : { "postscount" : 1 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,1"] , "relatedTopics" : [ "#holiday,1" , "#vacanza,1" , "#mare,1" , "#sea,1" , "#italy,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
+,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDajGBiOd" , "username" : "efpiem" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/18888741_273608839778546_8156843082147430400_a.jpg" , "lat" : 39.850370737149 , "long" : 18.181885141622 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "width" : 1080 , "height" : 810 , "user_url" : "https://www.instagram.com/efpiem" , "text" : "Thanks God is Summer #salento #lidomarini #beach #beautiful #italy #italia #summer #clearwater #sea #scuba #dive #sub #nature #seashore #stones #wonderful #paradise #holiday #vacances" , "network" : "instagram" , "key" : "BWdDajGBiOd" , "topicStatistic" : { "postscount" : 2 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,2"] , "relatedTopics" : [ "#holiday,2" , "#sea,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
+,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDadzDh0j" , "username" : "berenisgolty" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/15253328_1855632091351002_2310746423051681792_a.jpg" , "lat" : 36.843110829823 , "long" : 31.096830126981 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/berenisgolty" , "text" : "Прекрасно проводим время c @violettnikitina в @rixos_premium_belek #instagood #instagram #instacool #cool #amazing #Turkey #sea" , "network" : "instagram" , "key" : "BWdDadzDh0j" , "topicStatistic" : { "postscount" : 3 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,3"] , "relatedTopics" : [ "#sea,3" , "#holiday,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
+,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaajFgsP" , "username" : "vojtanezdara" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/14488335_597754150404061_8240013083725004800_a.jpg" , "lat" : 36.8933 , "long" : 27.2889 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/vojtanezdara" , "text" : "#kos #greece #vacation #sea #view #sunset #sky" , "network" : "instagram" , "key" : "BWdDaajFgsP" , "topicStatistic" : { "postscount" : 4 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,4"] , "relatedTopics" : [ "#sea,4" , "#holiday,2" , "#italy,2" , "#view,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1"]}}
+,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaNNBkkK" , "username" : "vika.kudryashova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17493900_1377617375635602_3077590371073523712_a.jpg" , "lat" : 59.4567795275 , "long" : 28.03200859375 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "width" : 1080 , "height" : 1350 , "user_url" : "https://www.instagram.com/vika.kudryashova" , "text" : "#view #sea #estonia #balticsea #nature #summertime" , "network" : "instagram" , "key" : "BWdDaNNBkkK" , "topicStatistic" : { "postscount" : 5 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,5"] , "relatedTopics" : [ "#sea,5" , "#view,3" , "#holiday,2" , "#italy,2" , "#nature,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1"]}}
 
         ]
     </script>
@@ -111,7 +110,9 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-    </style>
+
+
+</style>
     <style>
          .pswp__bg{
              filter: blur(10px);
@@ -163,14 +164,7 @@
 
         }
 
-        #menu-button {
-            font-size: 25px;
-            cursor: pointer;
-            z-index: 100;
-            position: absolute;
-            color: #fff;
-            left:1%
-        }
+
     </style>
     <style>
         .sidenav {
@@ -203,6 +197,14 @@
             right: 25px;
             font-size: 36px;
             margin-left: 50px;
+        }
+
+        .menu-button {
+            font-size: 25px;
+            cursor: pointer;
+            z-index: 100;
+            position: absolute;
+            color: #fff;
         }
 
     </style>
@@ -362,6 +364,8 @@
         }
     </script>
     <script>
+        ispswpOpen = false;
+        items = [];
         var openPhotoSwipe = function (post) {
             var pswpElement = document.querySelectorAll('.pswp')[0];
             $("#pswp-preview-img").attr("src", post.user_photo_url);
@@ -369,14 +373,10 @@
             $("#pswp-preview-text-a").html( post.username + " <br> " + post.network + ' topic:' + post.topic);
             $("#pswp-preview-text-a").attr("href", post.user_url);
 
+
             $(".pswp__bg").css({"background-image": "url("+post.photo_url+ ")"});
 
-            items = [{
-                src: post.photo_url,
-                w: post.width,
-                h: post.height,
-                title: '<a href=' + post.post_url + ' target=_blank style="color: #fff; overflow-y: scroll;">' + post.text + '</a>' + '<br>',
-            }];
+
             var options = {
                 history: false,
                 focus: false,
@@ -386,12 +386,28 @@
                 zoomEl: false
             };
 
+            if(ispswpOpen) {
+                return;
+            }
+
+
             pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             pswp.init();
+            console.log('open');
+            ispswpOpen = true;
 
-            pswp.listen('gettingData', function(index, item) {
-                console.log('gettingData');
+            pswp.listen('close', function() {
+                ispswpOpen = false;
+                console.log('close');
             });
+            pswp.listen('beforeChange', function(index) {
+                console.log('index', pswp.getCurrentIndex());
+
+                $(".pswp__bg").css({"background-image": "url("+items[pswp.getCurrentIndex()].src+ ")"});
+                console.log('beforeChange', items[pswp.getCurrentIndex()].title);
+            });
+
+            pswp.goTo(post.index)
         };
 
     </script>
@@ -400,7 +416,7 @@
 
 
 <div id="mySidenav" class="sidenav" style="z-index: 1000">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
 
     <div id="myDIV" class="header">
         <div>
@@ -416,6 +432,14 @@
             <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
             <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
         </div>
+    </div>
+</div>
+
+<div id="statsSidenav" class="sidenav" style="z-index: 1000">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('statsSidenav')">&times;</a>
+
+    <div >
+       statistics by topic here will be
     </div>
 </div>
 <script>
@@ -463,14 +487,15 @@
 
 </script>
 
-<span id="menu-button" onclick="openNav()"> &#9776; </span>
+<span id="topics-menu-button" class="menu-button" onclick="openNav('mySidenav')"    style="position: absolute;left:1%"> &#9776; </span>
+<span id="stats-menu-button"  class="menu-button" onclick="openNav('statsSidenav')" style="position: absolute;right:1%"> &#9776; </span>
 <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "100%";
+    function openNav(what) {
+        document.getElementById(what).style.width = "100%";
     }
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
+    function closeNav(what) {
+        document.getElementById(what).style.width = "0";
     }
 </script>
 
@@ -597,7 +622,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
     }
 
     function removeOldPost() {
-        if (postsQueue.length > 50) {
+        if (postsQueue.length >= 100) {
             var m = postsQueue.shift();
             map.removeLayer(m);
         }
@@ -611,6 +636,9 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         Array.from(postsQueue).forEach(m => map.removeLayer(m));
     }
     function removeAllPostFromScroll() {
+        items = [];
+        pswp.close();
+        postsCount = 0;
         Array.from(document.getElementsByClassName("elem")).forEach(el=> el.remove());
     }
 
@@ -634,7 +662,18 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         alert("Something wrong with topic " + topic);
     }
 
+    postsCount = 0;
     function handlePost(post) {
+        lastpost = post;
+        post.index =  postsCount;
+        postsCount += 1;
+        items.push({
+            src: post.photo_url,
+            w: post.width,
+            h: post.height,
+            title: '<a href=' + post.post_url + ' target=_blank style="color: #fff; overflow-y: scroll;">' + post.text + '</a>' + '<br>',
+        });
+
 
         try {
             addPostToMap(post);
@@ -651,6 +690,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             });
         }
         $("#img" + imgCount).dblclick(function() {
+
             openPhotoSwipe(post);
         });
 
@@ -675,7 +715,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             isopen = false;
 
            // socket = new WebSocket("ws://localhost:9000/ws");
-            socket = new WebSocket("ws://@util.Util.getServerIp():9000/ws");
+           // socket = new WebSocket("ws://@util.Util.getServerIp():9000/ws");
             socket.binaryType = "arraybuffer";
             socket.onopen = function () {
                 console.log("Connected to websocket!");
@@ -685,6 +725,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             socket.onmessage = function (e) {
                 if (typeof e.data === "string") {
                     var data = JSON.parse(e.data);
+                    console.log("e.data = ",e.data);
 
                     if(data.hasOwnProperty("wrongTopic")){
                         wrongTopic(data.wrongTopic)

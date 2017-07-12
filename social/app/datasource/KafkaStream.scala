@@ -7,6 +7,7 @@ import akka.stream.ActorMaterializer
 import com.mongodb.BasicDBObject
 import com.mongodb.util.JSON
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.joda.time.DateTime
 import play.api.Logger
 
 import scala.collection.JavaConversions._
@@ -19,22 +20,33 @@ import scala.collection.mutable
 class KafkaStream(actorSystem: ActorSystem) {
   val logger = Logger.logger
 
-  val topicsToUsers = mutable.Map[String, mutable.HashSet[ActorRef]]()
+  val topicsData = mutable.Map[String, TopicData]()
   val dataKeys = mutable.LinkedHashSet[String]()
 
   val key = "topics"
 
+  case class TopicTimeStatistic(var timestamp: Long, var count:Long)
+  case class RelatedTopicStatistic(var relatedTopic: String, var count:Long)
+
+  case class TopicData(name: String,
+                       users: mutable.HashSet[ActorRef] = mutable.HashSet[ActorRef](),
+                       timeStatistics: mutable.LinkedHashMap[Long, TopicTimeStatistic] = mutable.LinkedHashMap[Long, TopicTimeStatistic](),
+                       var postsCount: Long = 0,
+                       relatedTopics: mutable.LinkedHashMap[String, RelatedTopicStatistic] = mutable.LinkedHashMap[String, RelatedTopicStatistic]()
+                      )
+
   def addTopic(topic: String, userChannel:ActorRef) = synchronized {
-    val users = topicsToUsers.getOrElse(topic, mutable.HashSet())
+    val topicData = topicsData.getOrElse(topic, TopicData(topic))
+    val users = topicData.users
     users += userChannel
-    topicsToUsers(topic) = users
+    topicsData(topic) = topicData
   }
 
   def removeTopic(topic: String, userChannel:ActorRef) = synchronized {
-    if(topicsToUsers.containsKey(topic)) {
-      val users = topicsToUsers(topic)
+    if(topicsData.containsKey(topic)) {
+      val users = topicsData(topic).users
       users -= userChannel
-      if(users.isEmpty) topicsToUsers -= topic
+      if(users.isEmpty) topicsData -= topic
     }
   }
 
@@ -46,9 +58,31 @@ class KafkaStream(actorSystem: ActorSystem) {
     .withGroupId("social")
     .withMaxWakeups(10)
 
+  def updateStatistic(topic:String, newdata:BasicDBObject) = {
+    if (topicsData.containsKey(topic)){
+      val topicData = topicsData(topic)
+      topicData.postsCount += 1
+
+      val time = DateTime.now().withSecondOfMinute(0).getMillis / 1000
+      topicData.timeStatistics.getOrElseUpdate(time,TopicTimeStatistic(time, 0)).count += 1
+
+      """#(\w+)""".r.findAllIn(newdata.getString("text")).foreach { rt =>
+        topicData.relatedTopics.getOrElseUpdate(rt, RelatedTopicStatistic(rt, 0)).count += 1
+      }
+
+      newdata.put("topicStatistic",
+        new BasicDBObject("postscount", topicData.postsCount.toInt)
+        .append("usersCount", topicData.users.size)
+        .append("timeStatistic", topicData.timeStatistics.map(ts => s"${ts._2.timestamp},${ts._2.count}").toArray)
+        .append("relatedTopics", topicData.relatedTopics.toList.sortBy(-_._2.count).take(10).map(rts => s"${rts._2.relatedTopic},${rts._2.count}").toArray)
+      )
+    }
+  }
+
+
   def startKafkaStream() {
     Consumer.committableSource(consumerSettings, Subscriptions.topics("posts"))
-      .runForeach{msg =>
+      .runForeach { msg =>
         val dbo = JSON.parse(msg.record.value()).asInstanceOf[BasicDBObject]
         val data = util.Util.convert(dbo)
 
@@ -60,14 +94,18 @@ class KafkaStream(actorSystem: ActorSystem) {
           logger.debug(s"old data: ${data.getString("post_url")} dataKeys size: ${dataKeys.size}")
         }
         else {
-          logger.debug(s"new data: ${data.getString("post_url")}")
 
           val topic = data.getString("topic")
           synchronized {
-            if(topicsToUsers.contains(topic)){
-              topicsToUsers(topic).foreach(u => u ! data.toJson)
+            if(topicsData.contains(topic)){
+              updateStatistic(topic,data)
+              topicsData(topic).users.foreach(u => u ! data.toJson)
             }
           }
+
+          logger.debug(s"new data: $data")
+//          logger.debug(s"new data: ${data.getString("post_url")}")
+
         }
       }(materializer)
       .onFailure{

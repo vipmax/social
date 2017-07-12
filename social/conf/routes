@@ -4,7 +4,6 @@
 
 # basic alive check
 GET     /                           controllers.SocialApplication.index
-GET     /scroll                     controllers.SocialApplication.scroll
 GET     /scrollable                 controllers.SocialApplication.scrollable
 
 # Websocket endpoints
