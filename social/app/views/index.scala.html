@@ -167,36 +167,55 @@
 
     </style>
     <style>
-        .sidenav {
-            height: 100%;
-            width: 0;
+        .overlay {
+            height: 0%;
+            width: 100%;
             position: fixed;
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #111;
-            overflow-x: hidden;
+            /*background-color: rgb(0,0,0);*/
+            background-color: rgba(0,0,0, 1);
+            overflow-y: hidden;
             transition: 0.5s;
-            padding-top: 60px;
-            text-align:center;
         }
 
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
+        .overlay-content {
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay a {
+            padding: 8px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 36px;
             color: #818181;
             display: block;
             transition: 0.3s;
-
         }
 
-        .sidenav .closebtn {
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+        .overlay .closebtn {
             position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
+            /*top: 20px;*/
+            right: 45px;
+            /*font-size: 60px;*/
+        }
+
+        @media screen and (max-height: 450px) {
+        .overlay {overflow-y: auto;}
+        .overlay a {font-size: 20px}
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
         }
 
         .menu-button {
@@ -415,7 +434,7 @@
 <body>
 
 
-<div id="mySidenav" class="sidenav" style="z-index: 1000">
+<div id="mySidenav" class="overlay" style="z-index: 1000">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
 
     <div id="myDIV" class="header">
@@ -435,7 +454,7 @@
     </div>
 </div>
 
-<div id="statsSidenav" class="sidenav" style="z-index: 1000">
+<div id="statsSidenav" class="overlay" style="z-index: 1000">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav('statsSidenav')">&times;</a>
 
     <div >
@@ -491,11 +510,11 @@
 <span id="stats-menu-button"  class="menu-button" onclick="openNav('statsSidenav')" style="position: absolute;right:1%"> &#9776; </span>
 <script>
     function openNav(what) {
-        document.getElementById(what).style.width = "100%";
+        document.getElementById(what).style.height = "100%";
     }
 
     function closeNav(what) {
-        document.getElementById(what).style.width = "0";
+        document.getElementById(what).style.height = "0";
     }
 </script>
 
