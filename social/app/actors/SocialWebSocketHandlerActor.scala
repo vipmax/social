@@ -29,16 +29,16 @@ class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:Reques
 
     def receive = {
       case message: String =>
-        Logger.info(s"Received message: $message")
+        Logger.info(s"Received message: $message from ${initialRequest.remoteAddress}")
         message match {
           case t if t.startsWith("addTopic:") =>
-            log.info(s"addTopic: $t" )
+            log.info(s"addTopic: $t from ${initialRequest.remoteAddress}")
             val topic = t.substring("addTopic:".length).toLowerCase()
             userTopics += topic
             stream.addTopic(topic, outputChannel)
 
           case t if t.startsWith("removeTopic:") =>
-            log.info(s"removeTopic: $t" )
+            log.info(s"removeTopic: $t from ${initialRequest.remoteAddress}")
             val topic = t.substring("removeTopic:".length).toLowerCase()
             userTopics -= topic
             stream.removeTopic(topic, outputChannel)

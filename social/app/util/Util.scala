@@ -58,7 +58,7 @@ object Util {
   private def vkontakteParse(document: BasicDBObject) = {
     val returned = new BasicDBObject()
 
-    try { returned.append("topic", document.get("query")) } catch {case e: Exception => }
+    try { returned.append("topic", document.getString("search_query_params").replace("(","").replace(")","").replace(", ","\n").split("\n").find(_.contains("q,")).get.replace("q,","")) } catch {case e: Exception => }
     try { returned.put("post_url", s"https://new.vk.com/feed?w=wall${document.get("owner_id")}_${document.get("id")}") } catch {case e: Exception => }
     try { returned.append("user_photo_url", document.get("owner").asInstanceOf[BasicDBObject].get("photo_100")) } catch {case e: Exception => }
     try { returned.append("text", document.get("text")) } catch {case e: Exception => }
@@ -77,7 +77,12 @@ object Util {
       returned.append("icon_url", photo.get("photo_" + photoSizes.min))
       returned.append("width", photo.get("width"))
       returned.append("height", photo.get("height"))
-    } catch {case e: Exception => }
+    } catch {case e: Exception =>
+      returned.append("photo_url", "https://corp.mail.ru/static/markup/images/logo-vk.png")
+      returned.append("icon_url", "https://corp.mail.ru/static/markup/images/logo-vk.png")
+      returned.append("width", "512")
+      returned.append("height", "292")
+    }
 
     try {
       val id = document.get("owner").asInstanceOf[BasicDBObject].get("id")
@@ -88,20 +93,20 @@ object Util {
       val owner = document.get("owner").asInstanceOf[BasicDBObject]
       val username = s"${owner.get("first_name")} ${owner.get("last_name")}"
       returned.append("username", username)
-    } catch {case e: Exception => }
+    } catch {case e: Exception =>  returned.append("username", document.getString("from_id"))}
 
     returned
   }
 
-  def getServerIp(): String = {
+  def getServerIp(islocal: Boolean = false): String = {
     import java.net.NetworkInterface
 
     import collection.JavaConversions._
 
-    val ip = System.getProperty("prod.ip")
-    if(ip != null) {
-      println("Use production mode on : " + ip)
-      return ip
+    val prodIp = System.getProperty("prod.ip")
+    if(prodIp != null && !islocal) {
+      println("Use production mode on : " + prodIp)
+      return prodIp
     }
 
     NetworkInterface.getNetworkInterfaces.foreach{ ee =>

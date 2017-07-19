@@ -30,9 +30,7 @@ class KafkaStream(actorSystem: ActorSystem) {
 
   case class TopicData(name: String,
                        users: mutable.HashSet[ActorRef] = mutable.HashSet[ActorRef](),
-                       timeStatistics: mutable.LinkedHashMap[Long, TopicTimeStatistic] = mutable.LinkedHashMap[Long, TopicTimeStatistic](),
-                       var postsCount: Long = 0,
-                       relatedTopics: mutable.LinkedHashMap[String, RelatedTopicStatistic] = mutable.LinkedHashMap[String, RelatedTopicStatistic]()
+                       timeStatistics: mutable.LinkedHashMap[Long, TopicTimeStatistic] = mutable.LinkedHashMap[Long, TopicTimeStatistic]()
                       )
 
   def addTopic(topic: String, userChannel:ActorRef) = synchronized {
@@ -61,21 +59,10 @@ class KafkaStream(actorSystem: ActorSystem) {
   def updateStatistic(topic:String, newdata:BasicDBObject) = {
     if (topicsData.containsKey(topic)){
       val topicData = topicsData(topic)
-      topicData.postsCount += 1
 
       val time = DateTime.now().withSecondOfMinute(0).getMillis / 1000
       topicData.timeStatistics.getOrElseUpdate(time,TopicTimeStatistic(time, 0)).count += 1
 
-      """#(\w+)""".r.findAllIn(newdata.getString("text")).foreach { rt =>
-        topicData.relatedTopics.getOrElseUpdate(rt, RelatedTopicStatistic(rt, 0)).count += 1
-      }
-
-      newdata.put("topicStatistic",
-        new BasicDBObject("postscount", topicData.postsCount.toInt)
-        .append("usersCount", topicData.users.size)
-        .append("timeStatistic", topicData.timeStatistics.map(ts => s"${ts._2.timestamp},${ts._2.count}").toArray)
-        .append("relatedTopics", topicData.relatedTopics.toList.sortBy(-_._2.count).take(10).map(rts => s"${rts._2.relatedTopic},${rts._2.count}").toArray)
-      )
     }
   }
 
@@ -90,22 +77,20 @@ class KafkaStream(actorSystem: ActorSystem) {
         if(!isNewPost){
           if(dataKeys.size >= 1000)
             dataKeys -= dataKeys.head
-
-          logger.debug(s"old data: ${data.getString("post_url")} dataKeys size: ${dataKeys.size}")
         }
         else {
 
           val topic = data.getString("topic")
           synchronized {
             if(topicsData.contains(topic)){
-              updateStatistic(topic,data)
-              topicsData(topic).users.foreach(u => u ! data.toJson)
+//              updateStatistic(topic,data)
+              logger.debug(s"new data: ${data.getString("post_url")}")
+
+              val users = topicsData(topic).users
+              data.put("topicStatistic", new BasicDBObject("usersCount", users.size))
+              users.foreach(u => u ! data.toJson)
             }
           }
-
-          logger.debug(s"new data: $data")
-//          logger.debug(s"new data: ${data.getString("post_url")}")
-
         }
       }(materializer)
       .onFailure{

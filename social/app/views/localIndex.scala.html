@@ -1,59 +1,59 @@
 <!DOCTYPE html>
 <!--suppress ALL -->
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Social map</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Social map</title>
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta name="google-signin-client_id" content="1064250070524-dmfmvjjhi1lfkiaeafk2nm7lifnh5kb6.apps.googleusercontent.com">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="google-signin-client_id" content="1064250070524-dmfmvjjhi1lfkiaeafk2nm7lifnh5kb6.apps.googleusercontent.com">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css"/>
-    <link rel="stylesheet"
-          href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css"/>
+        <link rel="stylesheet"
+        href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
 
-    <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe.css" rel="stylesheet">
-    <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/default-skin/default-skin.css" rel="stylesheet">
-    <script src="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe.min.js"></script>
-    <script src="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe-ui-default.min.js"></script>
+        <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe.css" rel="stylesheet">
+        <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/default-skin/default-skin.css" rel="stylesheet">
+        <script src="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe.min.js"></script>
+        <script src="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe-ui-default.min.js"></script>
 
-    <script src="http://rawgit.com/iamdustan/smoothscroll/master/dist/smoothscroll.js"></script>
-    <script src="http://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.min.js"></script>
+        <script src="http://rawgit.com/iamdustan/smoothscroll/master/dist/smoothscroll.js"></script>
+        <script src="http://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.min.js"></script>
 
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
         isTesting = false;
 
         testposts = [
             { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDalLH8V6" , "username" : "petpumprlova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17493461_138283886700602_2983715176395571200_a.jpg" , "lat" : 42.5667 , "long" : 14.1 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19985431_1770558046567963_1106955317201076224_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19985431_1770558046567963_1106955317201076224_n.jpg" , "width" : 1080 , "height" : 1302 , "user_url" : "https://www.instagram.com/petpumprlova" , "text" : "Po 7letech jsem nejela letos pracovat do itosky a tak hnusny pocasi tady,tak aspon male pripomenuti- PRIMETIME❤\n#holiday #vacanza #mare #sea #italy #mygirl #frend #sun #primetime #view #like4like #likeforlike #picoftheday 🌊☀️🇮🇹❤👩‍❤️‍👩" , "network" : "instagram" , "key" : "BWdDalLH8V6" , "topicStatistic" : { "postsCount" : 1 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,1"] , "relatedTopics" : [ "#holiday,1" , "#vacanza,1" , "#mare,1" , "#sea,1" , "#italy,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
-,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDajGBiOd" , "username" : "efpiem" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/18888741_273608839778546_8156843082147430400_a.jpg" , "lat" : 39.850370737149 , "long" : 18.181885141622 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "width" : 1080 , "height" : 810 , "user_url" : "https://www.instagram.com/efpiem" , "text" : "Thanks God is Summer #salento #lidomarini #beach #beautiful #italy #italia #summer #clearwater #sea #scuba #dive #sub #nature #seashore #stones #wonderful #paradise #holiday #vacances" , "network" : "instagram" , "key" : "BWdDajGBiOd" , "topicStatistic" : { "postsCount" : 2 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,2"] , "relatedTopics" : [ "#holiday,2" , "#sea,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
-,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDadzDh0j" , "username" : "berenisgolty" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/15253328_1855632091351002_2310746423051681792_a.jpg" , "lat" : 36.843110829823 , "long" : 31.096830126981 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/berenisgolty" , "text" : "Прекрасно проводим время c @@violettnikitina в @@rixos_premium_belek #instagood #instagram #instacool #cool #amazing #Turkey #sea" , "network" : "instagram" , "key" : "BWdDadzDh0j" , "topicStatistic" : { "postsCount" : 3 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,3"] , "relatedTopics" : [ "#sea,3" , "#holiday,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
-,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaajFgsP" , "username" : "vojtanezdara" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/14488335_597754150404061_8240013083725004800_a.jpg" , "lat" : 36.8933 , "long" : 27.2889 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/vojtanezdara" , "text" : "#kos #greece #vacation #sea #view #sunset #sky" , "network" : "instagram" , "key" : "BWdDaajFgsP" , "topicStatistic" : { "postsCount" : 4 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,4"] , "relatedTopics" : [ "#sea,4" , "#holiday,2" , "#italy,2" , "#view,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1"]}}
-,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaNNBkkK" , "username" : "vika.kudryashova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17493900_1377617375635602_3077590371073523712_a.jpg" , "lat" : 59.4567795275 , "long" : 28.03200859375 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "width" : 1080 , "height" : 1350 , "user_url" : "https://www.instagram.com/vika.kudryashova" , "text" : "#view #sea #estonia #balticsea #nature #summertime" , "network" : "instagram" , "key" : "BWdDaNNBkkK" , "topicStatistic" : { "postsCount" : 5 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,5"] , "relatedTopics" : [ "#sea,5" , "#view,3" , "#holiday,2" , "#italy,2" , "#nature,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1"]}}
+            ,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDajGBiOd" , "username" : "efpiem" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/18888741_273608839778546_8156843082147430400_a.jpg" , "lat" : 39.850370737149 , "long" : 18.181885141622 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955345_482708402062736_8687410309301796864_n.jpg" , "width" : 1080 , "height" : 810 , "user_url" : "https://www.instagram.com/efpiem" , "text" : "Thanks God is Summer #salento #lidomarini #beach #beautiful #italy #italia #summer #clearwater #sea #scuba #dive #sub #nature #seashore #stones #wonderful #paradise #holiday #vacances" , "network" : "instagram" , "key" : "BWdDajGBiOd" , "topicStatistic" : { "postsCount" : 2 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,2"] , "relatedTopics" : [ "#holiday,2" , "#sea,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
+            ,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDadzDh0j" , "username" : "berenisgolty" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/15253328_1855632091351002_2310746423051681792_a.jpg" , "lat" : 36.843110829823 , "long" : 31.096830126981 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19933154_825823904259370_6000289438175854592_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/berenisgolty" , "text" : "Прекрасно проводим время c @@violettnikitina в @@rixos_premium_belek #instagood #instagram #instacool #cool #amazing #Turkey #sea" , "network" : "instagram" , "key" : "BWdDadzDh0j" , "topicStatistic" : { "postsCount" : 3 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,3"] , "relatedTopics" : [ "#sea,3" , "#holiday,2" , "#italy,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1" , "#view,1"]}}
+            ,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaajFgsP" , "username" : "vojtanezdara" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/14488335_597754150404061_8240013083725004800_a.jpg" , "lat" : 36.8933 , "long" : 27.2889 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e15/19955212_1889868641274975_8728720172338118656_n.jpg" , "width" : 750 , "height" : 750 , "user_url" : "https://www.instagram.com/vojtanezdara" , "text" : "#kos #greece #vacation #sea #view #sunset #sky" , "network" : "instagram" , "key" : "BWdDaajFgsP" , "topicStatistic" : { "postsCount" : 4 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,4"] , "relatedTopics" : [ "#sea,4" , "#holiday,2" , "#italy,2" , "#view,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1" , "#primetime,1"]}}
+            ,           { "topic" : "sea" , "post_url" : "https://www.instagram.com/p/BWdDaNNBkkK" , "username" : "vika.kudryashova" , "user_photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-19/s150x150/17493900_1377617375635602_3077590371073523712_a.jpg" , "lat" : 59.4567795275 , "long" : 28.03200859375 , "photo_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "icon_url" : "https://instagram.fhen1-1.fna.fbcdn.net/t51.2885-15/e35/19955362_1452451828166253_3157440337161486336_n.jpg" , "width" : 1080 , "height" : 1350 , "user_url" : "https://www.instagram.com/vika.kudryashova" , "text" : "#view #sea #estonia #balticsea #nature #summertime" , "network" : "instagram" , "key" : "BWdDaNNBkkK" , "topicStatistic" : { "postsCount" : 5 , "usersCount" : 1 , "timeStatistic" : [ "1499878440,5"] , "relatedTopics" : [ "#sea,5" , "#view,3" , "#holiday,2" , "#italy,2" , "#nature,2" , "#vacanza,1" , "#mare,1" , "#mygirl,1" , "#frend,1" , "#sun,1"]}}
 
         ]
 
 
     </script>
 
-    <style>
+        <style>
         html, body {
             width: 100%;
             height: 100%;
@@ -120,7 +120,7 @@
 
 
 </style>
-    <style>
+        <style>
          .pswp__bg{
              filter: blur(10px);
              background-size: cover;
@@ -134,9 +134,9 @@
              background-position:center;
          }
 
-        .pswp--zoom-allowed .pswp__img {
-            cursor: default !important
-        }
+         .pswp--zoom-allowed .pswp__img {
+             cursor: default !important
+         }
          .pswp__caption, .pswp__top-bar {
              background-color: rgba(0, 0, 0, 0);
          }
@@ -145,35 +145,35 @@
          }
 
          .pswp__caption{
-            max-height: 30%;
-        }
+             max-height: 30%;
+         }
 
-        .pswp__caption__center {
-            text-align: center;
-            max-height: 50%;
-            max-width: 100%;
-            font-size: 140%
-        }
+         .pswp__caption__center {
+             text-align: center;
+             max-height: 50%;
+             max-width: 100%;
+             font-size: 140%
+         }
 
-        #pswp-preview-img-a {
-            position: absolute;
-            padding: 3px;
-            z-index: 9999;
-            font-size: 140%
+         #pswp-preview-img-a {
+             position: absolute;
+             padding: 3px;
+             z-index: 9999;
+             font-size: 140%
 
-        }
-        #pswp-preview-text-a {
-            position: absolute;
-            margin-left: 45px;
-            z-index: 9999;
-            color: #fff;
-            font-size: 120%
+         }
+         #pswp-preview-text-a {
+             position: absolute;
+             margin-left: 45px;
+             z-index: 9999;
+             color: #fff;
+             font-size: 120%
 
-        }
+         }
 
 
     </style>
-    <style>
+        <style>
         .overlay {
             height: 0%;
             width: 100%;
@@ -233,7 +233,7 @@
         }
 
     </style>
-    <style>
+        <style>
         /* Include the padding and border in an element's total width and height */
         * {
             box-sizing: border-box;
@@ -364,7 +364,7 @@
         }
     </style>
 
-    <script>
+        <script>
         function generateColor() {
             return "#"+((1<<24)*Math.random()|0).toString(16);
         }
@@ -372,7 +372,7 @@
         topicColors = new Map();
 
     </script>
-    <script>
+        <script>
         topics = [];
         topicsStats = new Map();
 
@@ -386,16 +386,16 @@
             hashtags.forEach(h => {
                 h = h.trim()
                 var maybeRelatedTopic = topicStat.relatedTopics.find(rt => rt.label == h);
-                if(maybeRelatedTopic == null) topicStat.relatedTopics.push({label: h, y: 1});
-                else maybeRelatedTopic.y += 1;
-            })
+            if(maybeRelatedTopic == null) topicStat.relatedTopics.push({label: h, y: 1});
+            else maybeRelatedTopic.y += 1;
+        })
 
             topicStat.relatedTopics = topicStat.relatedTopics.sort((b,a) => a.y - b.y)
             var x = 0;
             topicStat.relatedTopics.forEach(rt => {
                 rt.x = x;
-                x++;
-            });
+            x++;
+        });
         }
 
         function calcSpeedStatistic(post, topicStat) {
@@ -482,7 +482,7 @@
             avg = 0;
             topicStat.speedData.forEach(sd => {
                 avg += sd.y;
-            })
+        })
 
             avg = avg / topicStat.speedData.length
 
@@ -495,14 +495,14 @@
             if(!topics.includes(topic)) return;
 
             $("#statsDiv").append('<div id="stats-'+topic+'">' +
-                        '<button class="accordion" id="accordion-button-'+topic+'" style="text-align: center; background: '+topicColors.get(topic)+'">'+ topic+'</button>'+
-                        '<div class="panel">'+
-                            '<div id="postsCount-' + topic + '"></div>' +
-                            '<div id="usersCount-' + topic + '"></div>' +
-                            '<div id="relatedTopics-' + topic + '"></div>' +
-                            '<div id="timeStats-' + topic + '"></div>' +
-                            '<div id="relatedTopicsChartContainer-' + topic + '" style="height: 300px; width: 100%;"></div>' +
-                            '<div id="topicSpeedChartContainer-' + topic + '" style="height: 300px; width: 100%;"></div>' +
+                    '<button class="accordion" id="accordion-button-'+topic+'" style="text-align: center; background: '+topicColors.get(topic)+'">'+ topic+'</button>'+
+                    '<div class="panel">'+
+                    '<div id="postsCount-' + topic + '"></div>' +
+                    '<div id="usersCount-' + topic + '"></div>' +
+                    '<div id="relatedTopics-' + topic + '"></div>' +
+                    '<div id="timeStats-' + topic + '"></div>' +
+                    '<div id="relatedTopicsChartContainer-' + topic + '" style="height: 300px; width: 100%;"></div>' +
+                    '<div id="topicSpeedChartContainer-' + topic + '" style="height: 300px; width: 100%;"></div>' +
 
 
                     '</div>'+
@@ -546,7 +546,7 @@
             removeStatisticDivs(topic)
         }
     </script>
-    <script>
+        <script>
         ispswpOpen = false;
         items = [];
 
@@ -597,44 +597,44 @@
         };
 
     </script>
-</head>
-<body>
+    </head>
+    <body>
 
 
-<div id="mySidenav" class="overlay" style="z-index: 1000">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
+        <div id="mySidenav" class="overlay" style="z-index: 1000">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
 
-    <div id="myDIV" class="header">
+            <div id="myDIV" class="header">
 
-        <div>
-            <h2 style="color: #CCC">My topics</h2>
-            <input type="text" id="myInput" placeholder="example: spb">
-            <span onclick="newTag()" class="addBtn">Add</span>
+                <div>
+                    <h2 style="color: #CCC">My topics</h2>
+                    <input type="text" id="myInput" placeholder="example: spb">
+                    <span onclick="newTag()" class="addBtn">Add</span>
+                </div>
+                <br><br><br>
+                <ul id="myUL" class="topics"></ul>
+
+                <div style="margin-top: 10px">
+                    <span onclick="removeAll()" class="removeBtn">Remove all</span>
+                    <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
+                    <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
+                </div>
+            </div>
         </div>
-        <br><br><br>
-        <ul id="myUL" class="topics"></ul>
 
-        <div style="margin-top: 10px">
-            <span onclick="removeAll()" class="removeBtn">Remove all</span>
-            <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
-            <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
+        <div id="statsSidenav" class="overlay" style="z-index: 1000;text-align: center; overflow:scroll">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('statsSidenav')">&times;</a>
+
+            <div id="statsDiv">
+                <h2 style="color: #CCC; margin-top: 60px;">Statistic by topics</h2>
+            </div>
         </div>
-    </div>
-</div>
-
-<div id="statsSidenav" class="overlay" style="z-index: 1000;text-align: center; overflow:scroll">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav('statsSidenav')">&times;</a>
-
-    <div id="statsDiv">
-        <h2 style="color: #CCC; margin-top: 60px;">Statistic by topics</h2>
-    </div>
-</div>
 
 
-<span id="topics-menu-button" class="menu-button" onclick="openNav('mySidenav')"    style="position: absolute;left:1%"> &#9776; </span>
-<span id="stats-menu-button"  class="menu-button" onclick="openNav('statsSidenav')" style="position: absolute;right:1%"> &#9776; </span>
+        <span id="topics-menu-button" class="menu-button" onclick="openNav('mySidenav')"    style="position: absolute;left:1%"> &#9776; </span>
+        <span id="stats-menu-button"  class="menu-button" onclick="openNav('statsSidenav')" style="position: absolute;right:1%"> &#9776; </span>
 
-<script>
+        <script>
     function openNav(what) {
         document.getElementById(what).style.height = "100%";
     }
@@ -643,7 +643,7 @@
         document.getElementById(what).style.height = "0";
     }
 </script>
-<script>
+        <script>
     // Create a new list item when clicking on the "Add" button
     function newTag() {
 
@@ -695,7 +695,7 @@
 
 </script>
 
-<style>
+        <style>
     button.accordion {
         background-color: #eee;
         color: #444;
@@ -723,79 +723,79 @@
 </style>
 
 
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <!-- Root element of PhotoSwipe. Must have class pswp. -->
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-    <!-- Background of PhotoSwipe.
+                <!-- Background of PhotoSwipe.
 It's a separate element, as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
+            <div class="pswp__bg"></div>
 
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
+                <!-- Slides wrapper with overflow:hidden. -->
+            <div class="pswp__scroll-wrap">
 
-        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
-        <div class="pswp__container">
-            <!-- don't modify these 3 pswp__item elements, data is added later on -->
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
+                    <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                <div class="pswp__container">
+                        <!-- don't modify these 3 pswp__item elements, data is added later on -->
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
 
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
+                    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                <div class="pswp__ui pswp__ui--hidden">
 
-            <div class="pswp__top-bar">
+                    <div class="pswp__top-bar">
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
-                <div class="pswp__counter" style="visibility: hidden"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                            <!--  Controls are self-explanatory. Order can be changed. -->
+                        <div class="pswp__counter" style="visibility: hidden"></div>
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Share"></button>
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
 
-                <a id="pswp-preview-img-a"  target=_blank><img id="pswp-preview-img" width="40" height="40" ></a>
-                <a id="pswp-preview-text-a" target=_blank></a>
+                        <a id="pswp-preview-img-a"  target=_blank><img id="pswp-preview-img" width="40" height="40" ></a>
+                        <a id="pswp-preview-text-a" target=_blank></a>
 
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
+                            <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                            <!-- element will get class pswp__preloader--active when preloader is running -->
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                                <div class="pswp__preloader__cut">
+                                    <div class="pswp__preloader__donut"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                    </div>
+
+                    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+                    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+
                 </div>
-            </div>
 
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
             </div>
 
         </div>
 
-    </div>
+        <div id="map"></div>
 
-</div>
+        <footer>
+            <div id="scroller-wrapper">
+                <div id="scroller"></div>
+            </div>
+        </footer>
 
-<div id="map"></div>
-
-<footer>
-    <div id="scroller-wrapper">
-        <div id="scroller"></div>
-    </div>
-</footer>
-
-<script>
+        <script>
 
     var southWest = L.latLng(-90, -180);
     var northEast = L.latLng(90, 180);
@@ -903,7 +903,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
 
         $("#scroller").append('<div class="elem" id="img' + imgCount + '">' +
                 '<img src=' + post.photo_url + ' style="border-bottom:solid ' + topicColors.get(post.topic) + ' 5px">' +
-            '</div>');
+                '</div>');
 
         if(post.hasOwnProperty("lat")) {
             $("#img" + imgCount).click(function () {
@@ -939,8 +939,8 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             socket = null;
             isopen = false;
 
-           // socket = new WebSocket("ws://localhost:9000/ws");
-            socket = new WebSocket("ws://@util.Util.getServerIp():9000/ws");
+            // socket = new WebSocket("ws://localhost:9000/ws");
+            socket = new WebSocket("ws://@util.Util.getServerIp(islocal = true):9999/ws");
             socket.binaryType = "arraybuffer";
             socket.onopen = function () {
                 console.log("Connected to websocket!");
@@ -972,5 +972,5 @@ It's a separate element, as animating opacity is faster than rgba(). -->
 
 </script>
 
-</body>
+    </body>
 </html>

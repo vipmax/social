@@ -32,6 +32,12 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
   }
 
 
+  def local = Action { req =>
+    logger.info(s"Got request from ${req.domain}")
+    Ok(views.html.localIndex())
+  }
+
+
   def scrollable = Action {
     Ok(views.html.scrollablePage())
   }
