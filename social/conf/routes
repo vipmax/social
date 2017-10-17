@@ -6,6 +6,7 @@
 GET     /                           controllers.SocialApplication.index
 GET     /local                      controllers.SocialApplication.local
 GET     /scrollable                 controllers.SocialApplication.scrollable
+GET     /board                      controllers.SocialApplication.board
 
 # Websocket endpoints
 GET     /ws                         controllers.SocialApplication.reactive
