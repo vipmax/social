@@ -181,7 +181,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: rgba(0,0,0, 1);
+            background-color: rgba(0,0,0, 0.8);
             overflow-y: hidden;
             transition: 0.5s;
         }
@@ -208,9 +208,9 @@
         }
 
         .overlay .closebtn {
-            position: absolute;
+            position: relative;
             /*top: 20px;*/
-            right: 45px;
+            /*right: 45px;*/
             /*font-size: 60px;*/
         }
 
@@ -599,17 +599,19 @@
 
 
         <div id="mySidenav" class="overlay" style="z-index: 1000">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
 
             <div id="myDIV" class="header">
 
                 <div>
-                    <h2 style="color: #CCC">My topics</h2>
+                    <h2 style="color: #CCC">Welcome to realtime photo board!</h2>
+                    <h2 style="color: #CCC">You can add topics or hashtags here</h2>
                     <input type="text" id="myInput" placeholder="example: spb">
                     <span onclick="newTag()" class="addBtn">Add</span>
                 </div>
                 <br><br><br>
                 <ul id="myUL" class="topics"></ul>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">Go to board</a>
+
 
                 <div style="margin-top: 10px">
                     <span onclick="removeAll()" class="removeBtn">Remove all</span>
@@ -865,7 +867,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
                 '</div>');
 
 
-        $("#img-" + post.topic + post.index).dblclick(function() {
+        $("#img-" + post.topic + post.index).click(function() {
             console.log("openPhotoSwipe");
             openPhotoSwipe(post);
         });
