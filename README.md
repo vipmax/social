@@ -1,4 +1,8 @@
 # social
+clone 
+
+git submodule update --init --recursive
+
 
 cd osn-crawler 
 

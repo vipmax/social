@@ -5,4 +5,4 @@ rsync -aurv \
  --exclude '.idea'       \
  --exclude '.git'        \
  --progress              \
- ./ 192.168.13.133:/home/nano/sncrawler
+ ./ 192.168.13.133:/home/nano/social

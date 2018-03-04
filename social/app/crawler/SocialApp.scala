@@ -40,9 +40,9 @@ class SocialApp (stream: KafkaStream) extends CrawlerClient with ActorLogging {
       0 seconds, 5 seconds, self, "instagram"
     )(context.dispatcher)
 
-    context.system.scheduler.schedule(
-      0 seconds, 5 seconds, self, "vk"
-    )(context.dispatcher)
+//    context.system.scheduler.schedule(
+//      0 seconds, 5 seconds, self, "vk"
+//    )(context.dispatcher)
   }
 
   override def receiveMassage(massage: Any): Unit = massage match {

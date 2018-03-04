@@ -19,7 +19,6 @@ class SocialApplication @Inject() (implicit system: ActorSystem) extends Control
 
   CrawlerMaster.main(Array())
   CrawlerAgent.main(Array())
-  CrawlerAgent.main(Array())
 
   val stream = new KafkaStream(system)
 

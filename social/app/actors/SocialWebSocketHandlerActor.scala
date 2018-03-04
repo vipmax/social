@@ -33,7 +33,7 @@ class SocialWebSocketHandlerActor(outputChannel: ActorRef, initialRequest:Reques
         message match {
           case t if t.startsWith("addTopic:") =>
             log.info(s"addTopic: $t from ${initialRequest.remoteAddress}")
-            val topic = t.substring("addTopic:".length).toLowerCase()
+            val topic = t.substring("addTopic:".length).toLowerCase().trim
             userTopics += topic
             stream.addTopic(topic, outputChannel)
 
