@@ -10,22 +10,21 @@
     <meta name="google-signin-client_id" content="1064250070524-dmfmvjjhi1lfkiaeafk2nm7lifnh5kb6.apps.googleusercontent.com">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css"/>
-    <link rel="stylesheet"
-          href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <link rel="stylesheet" href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
 
     <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/photoswipe.css" rel="stylesheet">
     <link href="http://rawgit.com/dimsemenov/PhotoSwipe/master/dist/default-skin/default-skin.css" rel="stylesheet">
@@ -36,6 +35,9 @@
     <script src="http://rawgit.com/jquery/jquery-mousewheel/master/jquery.mousewheel.min.js"></script>
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
 
 
     <script type="text/javascript">
@@ -100,6 +102,7 @@
             height: 100%;
             overflow-x: auto;
             white-space: nowrap;
+            overflow-y:hidden;
         }
 
         .elem {
@@ -118,8 +121,15 @@
             background-size: cover;
         }
 
+    </style>
+    <style>
+      #basemaps-wrapper {
 
-</style>
+      }
+      #basemaps {
+          margin-bottom: 5px;
+      }
+    </style>
     <style>
          .pswp__bg{
              filter: blur(10px);
@@ -622,6 +632,8 @@
             <span onclick="removeAllPost()" class="removeBtn">Remove all from map</span>
             <span onclick="removeAllPostFromScroll()" class="removeBtn">Remove all from scroll</span>
         </div>
+
+
     </div>
 </div>
 
@@ -814,12 +826,11 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         attributionControl: true
     });
 
-    L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    var layer =  L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
         subdomains: 'abcd',
         maxZoom: 19,
         attribution: '&copy; <a href="http://vk.com/max___petrov">Max Petrov</a>'
     }).addTo(map);
-
 
     function locate(lat, long) {
         map.panTo(new L.LatLng(lat, long));

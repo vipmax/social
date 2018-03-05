@@ -2,8 +2,15 @@
 
 git submodule update --init --recursive
 
-sh download_redis_kafka.sh
+cd bin
+if [ ! -d "kafka" ]; then
+ sh download_redis_kafka.sh
+fi
 
+sh stop_redis_zoo_kafka.sh
 sh start_redis_zoo_kafka.sh
+cd ..
 
-cd osn-crawler && mvn clean install -DskipTests
+cd osn-crawler && mvn clean install -DskipTests && cd ..
+
+cd social && ./activator run && cd ..
