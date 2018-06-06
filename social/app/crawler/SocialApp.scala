@@ -3,7 +3,7 @@ package crawler
 import akka.actor.{ActorLogging, ActorSystem, Props}
 import com.crawler.core.runners.{CrawlerClient, CrawlerConfig}
 import com.crawler.dao.KafkaUniqueSaverInfo
-import com.crawler.osn.common.TaskDataResponse
+import com.crawler.osn.common.{CrawlerProxy, TaskDataResponse}
 import com.crawler.osn.instagram.{InstagramNewGeoPostsSearchTask, InstagramNewGeoPostsSearchTaskFailureResponse}
 import com.crawler.osn.vkontakte.tasks.VkSearchPostsTask
 import com.crawler.util.Util
@@ -51,6 +51,7 @@ class SocialApp (stream: KafkaStream) extends CrawlerClient with ActorLogging {
         val task = InstagramNewGeoPostsSearchTask(topic)
         task.saverInfo = Option(saverInfo)
         task.responseActor = Option(self)
+        task.proxy = Some(CrawlerProxy("socks", "192.168.13.129", "9060"))
 
         log.info(s"Sending task $task to master")
         send(task)
